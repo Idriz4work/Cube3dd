@@ -1,0 +1,53 @@
+Phase 1: Environment Setup and Parsing
+
+Phase 2: Basic Window and Graphics
+    Set up basic image buffer system
+    Test rendering simple shapes
+
+Phase 3: Player System
+    Implement collision detection
+    Add smooth movement and rotation
+    Variable speed implementation
+
+Phase 4: Raycasting Algorithm Implementation
+	Step 1: Ray Direction Calculation
+		Implement camera plane setup
+		Calculate ray direction for each screen column
+		Set up player direction and plane vectors
+
+	Step 2: Delta Distance Calculation
+		Calculate delta distances for x and y grid intersections
+		Implement grid position mapping
+
+	Step 3: Step and Side Distance Calculation
+		Calculate step directions (±1)
+		Initialize side distances for ray traversal
+
+	Step 4: Digital Differential Analysis (DDA)
+		Implement DDA algorithm
+		Wall detection logic
+		Track which side of wall was hit
+
+	Step 5: Wall Height and Distance Calculation
+		Calculate wall distance from player
+		Determine wall height on screen
+		Calculate draw start and end positions
+
+Phase 5: Texture Implementation
+    Implement texture coordinate calculation
+    Map wall intersection to texture coordinates
+    Handle different wall orientations (N, S, E, W)
+    Add shading for visual depth
+
+Phase 6: Rendering Optimization
+    Implement pixel map system
+    Optimize image buffer manipulation
+    Use MLX image functions instead of individual pixel drawing
+    (Implement ceiling and floor coloring)
+
+Phase 7: Polish and Optimization
+    Fine-tune performance
+    Add visual enhancements
+    Implement smooth animations
+    Code cleanup and documentation
+    Memory leak checking with Valgrind
