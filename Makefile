@@ -53,7 +53,7 @@ SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 OBJS = $(SRC:%.c=%.o)
 OBJ_FILES = $(addprefix $(OBJ_DIR), $(OBJS))
 
-all: $(OBJ_DIR) $(LIBFT_LIB) $(NAME)
+all: $(MLX_DIR) $(OBJ_DIR) $(LIBFT_LIB) $(NAME)
 
 $(NAME): $(LIBFT_LIB) $(OBJ_FILES)
 	$(CXX) $(CFLAGS) -DBONUS=$(BONUS) $(OBJ_FILES) \
@@ -87,7 +87,10 @@ val: $(NAME)
 	valgrind --leak-check=full ./$(NAME) "maps/test.cub"
 
 norm:
-	norminette ./sources ./includes/Libft ./headers | grep -v "OK!"
+	norminette ./sources $(LIBFT_DIR) ./headers | grep -v "OK!"
+
+commit: fclean
+	rm -rf $(MLX_DIR)
 
 clean:
 	make -C $(LIBFT_DIR) clean

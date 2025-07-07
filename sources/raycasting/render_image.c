@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:27:58 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/07 12:42:35 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/07 15:47:43 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	render_image(t_data *data)
 	while (++i < WINDOW_WIDTH)
 	{
 		printf("Casting line %i\n", i);
-		cast_ray(data, &ray);
+		cast_ray(data, &ray, i);
 		render_ray(data, &ray, i);
 	}
 	printf("///Finished rendering image///\n");

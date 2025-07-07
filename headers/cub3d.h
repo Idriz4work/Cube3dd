@@ -97,7 +97,7 @@ void	turn(t_data *data, int delta);
 
 // Raycasting functions
 void	render_image(t_data *data);
-void	cast_ray(t_data *data, t_ray *ray);
+void	cast_ray(t_data *data, t_ray *ray, int x);
 void	render_ray(t_data *data, t_ray *ray, int x);
 
 // Rendering functions
