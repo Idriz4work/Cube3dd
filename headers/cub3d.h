@@ -28,6 +28,7 @@
 # include "map_struct.h"
 # include "data_struct.h"
 # include "parsing.h"
+# include "ray_struct.h"
 
 // Because using M_PI gets marked wrong in VScode, but works in compiler
 # ifndef M_PI
@@ -93,6 +94,9 @@ void	move(t_data *data, int direction);
 void	turn(t_data *data, int delta);
 
 // Raycasting functions
+void	render_image(t_data *data);
+void	cast_ray(t_data *data, t_ray *ray);
+void	render_ray(t_data *data, t_ray *ray, int x);
 
 // Rendering functions
 void	make_background(t_data *data);
