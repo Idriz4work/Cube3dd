@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:03:28 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/02 18:00:31 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/07 14:19:46 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ static void	st_setup_mlx(t_data *data)
 	data->win = mlx_new_window(data->mlx, \
 WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 	data->image = NULL;
-	mlx_hook(data->win, KeyPress, KeyPressMask, key_hook, data);
-	mlx_hook(data->win, 17, 0, end_game, data);
+	setup_hooks(data);
 }
 
 // Creates and stores mlx images in our data structure

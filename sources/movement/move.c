@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:19:42 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/03 16:23:45 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/07 15:00:22 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void	move(t_data *data, int direction)
 {
 	double	delta_x;
 	double	delta_y;
-	int		amount;
 
-	amount = 0;
 	delta_x = (MOVE_SPEED * cos(deg_to_rad(data->dir - 90.0 - direction)));
 	delta_y = (MOVE_SPEED * sin(deg_to_rad(data->dir - 90.0 - direction)));
 	st_move_delta(data, delta_x, delta_y);

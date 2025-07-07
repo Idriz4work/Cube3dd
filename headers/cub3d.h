@@ -65,7 +65,7 @@
 # define KEY_DOWN 65364
 
 // Movement speed
-# define MOVE_SPEED 0.05
+# define MOVE_SPEED 0.1
 # define ROT_SPEED 5
 # define STEP_AMOUNT 5
 
@@ -83,6 +83,8 @@
 
 // Colors
 # define RED_CROSS 0xFF0000
+
+// Actions
 
 // Error messages
 
@@ -114,8 +116,10 @@ void	data_setup(t_data *data);
 double	deg_to_rad(double degree);
 
 // MLX event functions
-int		key_hook(int keycode, t_data *data);
 int		key_end(int keycode, t_data *data);
+void	action_trigger(t_data *data);
+void	setup_hooks(t_data *data);
+int		game_loop(t_data *data);
 int		end_game(t_data *data);
 
 #endif

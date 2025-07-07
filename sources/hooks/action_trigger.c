@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_hook.c                                         :+:      :+:    :+:   */
+/*   action_trigger.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/30 17:03:06 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/03 11:29:46 by sikunne          ###   ########.fr       */
+/*   Created: 2025/07/07 14:10:35 by sikunne           #+#    #+#             */
+/*   Updated: 2025/07/07 15:02:45 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
-int	key_hook(int keycode, t_data *data)
+/*
+Register saved action, and execute accordingly
+*/
+void	action_trigger(t_data *data)
 {
-	if (keycode == KEY_ESC)
+	int	key;
+
+	key = data->action;
+	if (key == 0)
+		return ;
+	if (key == KEY_ESC)
 		end_game(data);
-	else if (keycode == KEY_W || keycode == KEY_UP)
+	else if (key == KEY_W || key == KEY_UP)
 		move(data, DIR_U);
-	else if (keycode == KEY_D)
+	else if (key == KEY_D)
 		move(data, DIR_R);
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
+	else if (key == KEY_S || key == KEY_DOWN)
 		move(data, DIR_D);
-	else if (keycode == KEY_A)
+	else if (key == KEY_A)
 		move(data, DIR_L);
-	else if (keycode == KEY_LEFT)
+	else if (key == KEY_LEFT)
 		turn(data, -ROT_SPEED);
-	else if (keycode == KEY_RIGHT)
+	else if (key == KEY_RIGHT)
 		turn(data, ROT_SPEED);
 	else
-		printf("Key: %i\n", keycode);
-	update_display(data);
-	return (0);
+		printf("Key: %i\n", key);
+	data->action = 0;
+	return ;
 }
