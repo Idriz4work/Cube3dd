@@ -22,6 +22,8 @@ typedef struct s_ray
 	// Map position
 	int		map_x;
 	int		map_y;
+	double	d_x;
+	double	d_y;
 
 	// Delta distances
 	double	delta_dist_x;

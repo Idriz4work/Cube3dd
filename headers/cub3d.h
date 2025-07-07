@@ -84,6 +84,9 @@
 // Colors
 # define RED_CROSS 0xFF0000
 
+// Rendering
+# define FOV 90
+
 // Actions
 
 // Error messages
