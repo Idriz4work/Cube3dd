@@ -1,7 +1,7 @@
 NAME = cub3d
 
-CXX = cc
-CFLAGS = -Wall -Wextra -Werror
+CXX = gcc
+CFLAGS = -Wall -Wextra -Werror -g
 MLX_FLAGS = -L./includes/minilibx-linux -lmlx -L/usr/lib/X11 -lXext -lX11
 INCLUDES = -I /usr/include -I ./includes/minilibx-linux
 
@@ -17,6 +17,10 @@ MLX_LIB = $(MLX_DIR)/libmlx.a
 
 SRC = \
 main.c\
+hooks/action_trigger.c \
+hooks/game_loop.c \
+hooks/key_end.c \
+hooks/setup_hooks.c \
 movement/move.c \
 movement/turn.c \
 parsing/load_map.c \
@@ -42,8 +46,6 @@ utils/error.c \
 utils/find_cins.c \
 utils/get_next_line_utils.c \
 utils/get_next_line.c \
-utils/key_end.c \
-utils/key_hook.c \
 utils/my_pixel_put.c \
 utils/to_rgb.c
 
@@ -63,6 +65,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR) $(MLX_DIR)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)hooks
 	mkdir -p $(OBJ_DIR)movement
 	mkdir -p $(OBJ_DIR)parsing
 	mkdir -p $(OBJ_DIR)rendering
