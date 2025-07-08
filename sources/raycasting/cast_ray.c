@@ -6,14 +6,14 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/07 17:18:12 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/08 16:53:39 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "../../headers/cub3d.h"
 
-#define WINDOW_WIDTH 7
 #include <stdio.h>
+#include <math.h>
 
 typedef struct s_data
 {
@@ -70,6 +70,26 @@ typedef struct s_ray
 	int		tex_x;
 }	t_ray;
 
+double	deg_to_rad(double degree)
+{
+	return (degree * (M_PI / 180.0));
+}
+
+/** 
+ * Angles a vector
+ * @param: x_dir: x part of the vector
+ * @param: y_dir; y part of the vector
+ * @param: direction: the angle to turn the vector by
+ * @param: distance: the length of the vector
+ * 0 degrees = -y, 90 degrees = +x, 180 degrees = +y, 270 deg = -x
+*/
+void	angle_vector(double *x_dir, double *y_dir, int direction, double distance)
+{
+	*x_dir = (distance * cos(deg_to_rad(direction)));
+	*y_dir = (distance * sin(deg_to_rad(direction)));
+	printf("Angled Vector to %.f, %.2f, steps: %.2f, direction: %i\n", *x_dir, *y_dir, distance, direction);
+}
+
 /*Initialise data for ray*/
 static void	st_setup_ray(t_data *data, t_ray *ray, int x)
 {
@@ -93,6 +113,9 @@ static void	st_setup_ray(t_data *data, t_ray *ray, int x)
 	ray->map_y = 0;
 	ray->wall_x = x;
 }
+
+#define WINDOW_WIDTH 7
+#define FOV 90
 
 /*
 Get the vector for the ray
@@ -120,17 +143,20 @@ void	cast_ray(t_data *data, t_ray *ray, int x)
 }
 
 // Throw out pixels for vector (pos + dir + (plane * (i/WINDOW_WIDTH /2)))
+// The FOV controls the dir and the plane, and therefore this will always be fixed FOV
 int	main(void)
 {
 	t_data data;
 	t_ray	ray;
 	int	i;
+	int	direction;
 
 	i = 0;
-	data.dir_x = 0;
-	data.dir_y = WINDOW_WIDTH/2;
-	data.plane_x = WINDOW_WIDTH/2;
-	data.plane_y = 0;
+	direction = 0;
+	angle_vector(&data.plane_x, &data.plane_y, direction + 90, ((double)WINDOW_WIDTH)/2);
+	angle_vector(&data.dir_x, &data.dir_y, direction, (((double)WINDOW_WIDTH)/2 * (90 / (double)FOV)));
+	printf("Plane: %.2f %.2f\n", data.plane_x, data.plane_y);
+	printf("Dir: %.2f %.2f\n", data.dir_x, data.dir_y);
 	data.pos_x = 0;
 	data.pos_y = 0;
 	while (i < WINDOW_WIDTH)

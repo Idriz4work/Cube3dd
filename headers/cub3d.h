@@ -71,9 +71,9 @@
 
 // Rotations
 # define DIR_U 0
-# define DIR_L 90
+# define DIR_R 90
 # define DIR_D 180
-# define DIR_R 270
+# define DIR_L 270
 
 // Texture indices
 # define NORTH_TEX 0
@@ -117,6 +117,7 @@ int		to_rgb(int r, int g, int b);
 void	my_pixel_put(t_img *img, int x, int y, int color);
 void	data_setup(t_data *data);
 double	deg_to_rad(double degree);
+void	angle_vector(double *x_dir, double *y_dir, int rot, double distance);
 
 // MLX event functions
 int		key_end(int keycode, t_data *data);

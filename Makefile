@@ -36,6 +36,7 @@ parsing/mapfile_verify_grid.c \
 rendering/make_background.c \
 rendering/make_minimap.c \
 rendering/update_display.c \
+utils/angle_vector.c \
 utils/argc_check.c \
 utils/atoi_limit.c \
 utils/charlist_functions.c \
