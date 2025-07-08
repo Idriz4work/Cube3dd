@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:19:42 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/08 17:05:15 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/08 18:01:05 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	move(t_data *data, int direction)
 	double	delta_x;
 	double	delta_y;
 
-	angle_vector(&delta_x, &delta_y, direction + data->rot, MOVE_SPEED);
+	angle_vector(&delta_x, &delta_y, (double)direction + data->rot, MOVE_SPEED);
 	i = 0;
 	delta_x /= STEP_AMOUNT;
 	delta_y /= STEP_AMOUNT;
@@ -52,4 +52,5 @@ void	move(t_data *data, int direction)
 		if (!st_check_position(data, 0, delta_y))
 			data->pos_y += delta_y;
 	}
+	move_camera(data);
 }
