@@ -104,6 +104,7 @@ void	move_camera(t_data *data);
 void	render_image(t_data *data);
 void	cast_ray(t_data *data, t_ray *ray, int x);
 void	render_ray(t_data *data, t_ray *ray, int x);
+void	fake_render_ray(t_data *data, t_ray *ray);
 
 // Rendering functions
 void	make_background(t_data *data);
