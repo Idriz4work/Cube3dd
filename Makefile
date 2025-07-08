@@ -23,6 +23,7 @@ hooks/key_end.c \
 hooks/setup_hooks.c \
 movement/move.c \
 movement/turn.c \
+movement/move_camera.c \
 parsing/load_map.c \
 parsing/mapfile_build_list.c \
 parsing/mapfile_check_color.c \
@@ -33,9 +34,12 @@ parsing/mapfile_ll_to_grid.c \
 parsing/mapfile_open.c \
 parsing/mapfile_setup.c \
 parsing/mapfile_verify_grid.c \
+raycasting/cast_ray.c \
+raycasting/render_image.c \
 rendering/make_background.c \
 rendering/make_minimap.c \
 rendering/update_display.c \
+utils/angle_vector.c \
 utils/argc_check.c \
 utils/atoi_limit.c \
 utils/charlist_functions.c \
@@ -67,6 +71,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)hooks
 	mkdir -p $(OBJ_DIR)movement
+	mkdir -p $(OBJ_DIR)raycasting
 	mkdir -p $(OBJ_DIR)parsing
 	mkdir -p $(OBJ_DIR)rendering
 	mkdir -p $(OBJ_DIR)utils

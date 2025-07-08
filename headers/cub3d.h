@@ -41,6 +41,7 @@
 
 // Window data
 # define WINDOW_WIDTH 1024
+# define PLANE_LENGTH 4
 # define WINDOW_HEIGHT 768
 # define TEXTURE_SIZE 64
 # define WINDOW_TITLE "Cub3d by Lilly and Idris"
@@ -71,9 +72,9 @@
 
 // Rotations
 # define DIR_U 0
-# define DIR_L 90
+# define DIR_R 90
 # define DIR_D 180
-# define DIR_R 270
+# define DIR_L 270
 
 // Texture indices
 # define NORTH_TEX 0
@@ -83,6 +84,9 @@
 
 // Colors
 # define RED_CROSS 0xFF0000
+
+// Rendering
+# define FOV 90
 
 // Actions
 
@@ -94,6 +98,7 @@
 // Movement functions
 void	move(t_data *data, int direction);
 void	turn(t_data *data, int delta);
+void	move_camera(t_data *data);
 
 // Raycasting functions
 void	render_image(t_data *data);
@@ -114,6 +119,7 @@ int		to_rgb(int r, int g, int b);
 void	my_pixel_put(t_img *img, int x, int y, int color);
 void	data_setup(t_data *data);
 double	deg_to_rad(double degree);
+void	angle_vector(double *x_dir, double *y_dir, double rot, double distance);
 
 // MLX event functions
 int		key_end(int keycode, t_data *data);

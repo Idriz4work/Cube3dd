@@ -28,9 +28,12 @@ typedef struct s_data
 	// Player position and direction
 	double	pos_x;
 	double	pos_y;
-	double	dir;
+	double	rot;
+	// Camera plane
 	double	plane_x;
 	double	plane_y;
+	double	dir_x;
+	double	dir_y;
 	// Image buffer for rendering
 	t_img	*image;
 	int		**pixels_map;

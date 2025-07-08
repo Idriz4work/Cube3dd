@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:19:42 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/07 15:00:22 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/08 18:01:05 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,25 @@ static int	st_check_position(t_data *data, double d_x, double d_y)
 	return (0);
 }
 
-// Moves the distance <d_x> and <d_y> in small steps
-static void	st_move_delta(t_data *data, double d_x, double d_y)
-{
-	int		i;
-	double	step_x;
-	double	step_y;
-
-	i = 0;
-	step_x = d_x / STEP_AMOUNT;
-	step_y = d_y / STEP_AMOUNT;
-	while (++i < STEP_AMOUNT + 1)
-	{
-		if (!st_check_position(data, step_x, 0))
-			data->pos_x += step_x;
-		if (!st_check_position(data, 0, step_y))
-			data->pos_y += step_y;
-	}
-}
-
 // Moves the player Up, down, left or right
 // To be called with a DIR_X version, to move the player from rotated position
 // Uses trigonometry and the law of sines to calculate difference for vector
 void	move(t_data *data, int direction)
 {
+	int		i;
 	double	delta_x;
 	double	delta_y;
 
-	delta_x = (MOVE_SPEED * cos(deg_to_rad(data->dir - 90.0 - direction)));
-	delta_y = (MOVE_SPEED * sin(deg_to_rad(data->dir - 90.0 - direction)));
-	st_move_delta(data, delta_x, delta_y);
+	angle_vector(&delta_x, &delta_y, (double)direction + data->rot, MOVE_SPEED);
+	i = 0;
+	delta_x /= STEP_AMOUNT;
+	delta_y /= STEP_AMOUNT;
+	while (++i < STEP_AMOUNT + 1)
+	{
+		if (!st_check_position(data, delta_x, 0))
+			data->pos_x += delta_x;
+		if (!st_check_position(data, 0, delta_y))
+			data->pos_y += delta_y;
+	}
+	move_camera(data);
 }

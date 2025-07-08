@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:03:28 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/07 14:19:46 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/08 18:02:54 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	st_setup_direction(t_data *data, int x, int y)
 
 	type = data->minfo->grid[y][x];
 	if (type == 'E')
-		data->dir = 90;
+		data->rot = 0.0;
 	else if (type == 'S')
-		data->dir = 180;
+		data->rot = 90.0;
 	else if (type == 'W')
-		data->dir = 270;
+		data->rot = 180.0;
 	else
-		data->dir = 0;
+		data->rot = 0.0;
 }
 
 // Sets up players position

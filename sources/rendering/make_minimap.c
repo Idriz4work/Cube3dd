@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:42:58 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/03 16:17:56 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/08 16:56:27 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	st_draw_direction(t_data *data)
 	int		i;
 	int		j;
 
-	x = (MOVE_SPEED * 5 * cos(deg_to_rad(data->dir - 90.0)));
-	y = (MOVE_SPEED * 5 * sin(deg_to_rad(data->dir - 90.0)));
+	x = (MOVE_SPEED * 5 * cos(deg_to_rad(data->rot)));
+	y = (MOVE_SPEED * 5 * sin(deg_to_rad(data->rot)));
 	x = (data->pos_x + x) * BOX_SIZE;
 	y = (data->pos_y + y) * BOX_SIZE;
 	if (y < 0 || y + PLAYER_SIZE > WINDOW_HEIGHT || \
