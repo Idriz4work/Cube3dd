@@ -108,46 +108,6 @@ static int	st_perform_dda(t_data *data, t_ray *ray)
 }
 
 /**
- * Calculate the perpendicular wall distance
- * @param data: Game data containing player position
- * @param ray: The ray structure with DDA results
- */
-static void	st_calculate_wall_distance(t_data *data, t_ray *ray)
-{
-	if (ray->side == 0)  // X-side hit
-	
-		ray->wall_dist = (ray->map_x - data->pos_x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
-	
-	else  // Y-side hit
-	
-		ray->wall_dist = (ray->map_y - data->pos_y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
-	
-}
-
-/**
- * Determine which side of the grid cell was hit
- * @param ray: The ray structure with collision information
- * @return: Integer representing the side (0=NORTH, 1=WEST, 2=SOUTH, 3=EAST)
- */
-static int	st_determine_wall_side(t_ray *ray)
-{
-	if (ray->side == 0)  // X-side hit
-	{
-		if (ray->step_x > 0)
-			return (3);  // EAST_TEX
-		else
-			return (1);  // WEST_TEX
-	}
-	else  // Y-side hit
-	{
-		if (ray->step_y > 0)
-			return (2);  // SOUTH_TEX
-		else
-			return (0);  // NORTH_TEX
-	}
-}
-
-/**
  * Perform ray collision detection and return ray information
  * @param data: Game data containing player position and map
  * @param ray: The ray structure to perform collision detection on
@@ -158,27 +118,16 @@ int	*get_ray_collision_info(t_data *data, t_ray *ray, int result[2])
 {
 	double	vector_length;
 	
-	// Calculate delta distances for DDA
 	st_calculate_delta_distances(ray);
-	
-	// Setup DDA parameters
 	st_setup_dda(data, ray);
-	
-	// Perform DDA to find wall collision
 	st_perform_dda(data, ray);
-	
-	// Calculate perpendicular wall distance
 	st_calculate_wall_distance(data, ray);
-	
 	// Calculate vector length
 	vector_length = sqrt(ray->ray_dir_x * ray->ray_dir_x + ray->ray_dir_y * ray->ray_dir_y);
-	
 	// Store results
 	result[0] = (int)(ray->wall_dist * vector_length);  // Distance multiplier
 	result[1] = st_determine_wall_side(ray);           // Wall side
-	
 	// Update ray structure with calculated values for rendering
 	ray->side = result[1];
-	
 	return (result);
 }
