@@ -111,6 +111,9 @@ void	make_background(t_data *data);
 void	make_minimap(t_data *data);
 void	update_display(t_data *data);
 
+// Function declaration (add to function declarations section)
+int	*get_ray_collision_info(t_data *data, t_ray *ray, int result[2]);
+
 // Utility functions
 int		argc_check(int argc);
 int		error(char *message, int ret);
