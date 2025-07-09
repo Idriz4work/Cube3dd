@@ -96,8 +96,9 @@ val: $(NAME)
 norm:
 	norminette ./sources $(LIBFT_DIR) ./headers | grep -v "OK!"
 
-commit: fclean
+commit:
 	rm -rf $(MLX_DIR)
+	fclean
 
 clean:
 	make -C $(LIBFT_DIR) clean
