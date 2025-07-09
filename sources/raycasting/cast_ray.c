@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/08 18:52:52 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/09 15:26:07 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void	cast_ray(t_data *data, t_ray *ray, int x)
 {
 	st_setup_ray(data, ray, x);
 	st_get_vector(data, ray);
+	step_ray(data, ray);
 }

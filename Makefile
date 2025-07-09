@@ -37,6 +37,7 @@ parsing/mapfile_verify_grid.c \
 raycasting/cast_ray.c \
 raycasting/fake_render_ray.c \
 raycasting/render_image.c \
+raycasting/step_ray.c \
 rendering/make_background.c \
 rendering/make_minimap.c \
 rendering/update_display.c \
