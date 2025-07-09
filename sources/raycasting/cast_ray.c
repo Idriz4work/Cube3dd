@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/08 18:52:52 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 00:36:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,21 @@ static void	st_get_vector(t_data *data, t_ray *ray)
 }
 
 /** 
- * Casts out a ray
+ * Casts out a ray and performs collision detection
  * @param: ray: the ray to be sent out
  * @param: x: the x position of this ray on the screen
 */
 void	cast_ray(t_data *data, t_ray *ray, int x)
 {
+	int	collision_info[2];
+	
 	st_setup_ray(data, ray, x);
 	st_get_vector(data, ray);
+	
+	// Get ray collision information
+	get_ray_collision_info(data, ray, collision_info);
+	
+	// Store the collision information in the ray structure
+	ray->wall_dist = collision_info[0];  // Distance multiplier
+	ray->side = collision_info[1];       // Wall side (0=NORTH, 1=WEST, 2=SOUTH, 3=EAST)
 }
