@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 17:52:48 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 19:01:47 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ static void	st_get_vector(t_data *data, t_ray *ray)
 */
 void	cast_ray(t_data *data, t_ray *ray, int x)
 {
-	int	collision_info[2];
-	
 	st_setup_ray(data, ray, x);
 	st_get_vector(data, ray);
 	step_ray(data, ray);
-	get_ray_collision_info(data, ray, collision_info);
 }
