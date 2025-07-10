@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:03:28 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/08 18:02:54 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 17:38:35 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void	data_setup(t_data *data)
 	st_setup_mlx(data);
 	st_setup_player(data);
 	st_setup_images(data);
+	move_camera(data);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 00:36:30 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/10 17:52:48 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static void	st_get_vector(t_data *data, t_ray *ray)
 	factor = ((ray->wall_x * 2) / (WINDOW_WIDTH - 1)) - 1;
 	ray->ray_dir_x = data->dir_x + (factor * data->plane_x);
 	ray->ray_dir_y = data->dir_y + (factor * data->plane_y);
-	ray->d_x += ray->ray_dir_x;
-	ray->d_y += ray->ray_dir_y;
 	mlx_pixel_put(data->mlx, data->win, data->pos_x + ray->d_x * 32, data->pos_y + ray->d_y * 32, to_rgb(255, 0, 0)); // REMOVE
 }
 
@@ -70,11 +68,6 @@ void	cast_ray(t_data *data, t_ray *ray, int x)
 	
 	st_setup_ray(data, ray, x);
 	st_get_vector(data, ray);
-	
-	// Get ray collision information
+	step_ray(data, ray);
 	get_ray_collision_info(data, ray, collision_info);
-	
-	// Store the collision information in the ray structure
-	ray->wall_dist = collision_info[0];  // Distance multiplier
-	ray->side = collision_info[1];       // Wall side (0=NORTH, 1=WEST, 2=SOUTH, 3=EAST)
 }

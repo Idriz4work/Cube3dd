@@ -37,6 +37,7 @@ parsing/mapfile_verify_grid.c \
 raycasting/cast_ray.c \
 raycasting/fake_render_ray.c \
 raycasting/render_image.c \
+raycasting/step_ray.c \
 raycasting/ray_collision_detection.c \
 raycasting/ray_collision_detection_helper.c \
 rendering/make_background.c \
@@ -54,6 +55,7 @@ utils/find_cins.c \
 utils/get_next_line_utils.c \
 utils/get_next_line.c \
 utils/my_pixel_put.c \
+utils/oob_check.c \
 utils/to_rgb.c
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
@@ -97,8 +99,9 @@ val: $(NAME)
 norm:
 	norminette ./sources $(LIBFT_DIR) ./headers | grep -v "OK!"
 
-commit: fclean
+commit:
 	rm -rf $(MLX_DIR)
+	fclean
 
 clean:
 	make -C $(LIBFT_DIR) clean
