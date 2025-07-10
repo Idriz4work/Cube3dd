@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/09 15:26:07 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 17:52:48 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static void	st_get_vector(t_data *data, t_ray *ray)
 	factor = ((ray->wall_x * 2) / (WINDOW_WIDTH - 1)) - 1;
 	ray->ray_dir_x = data->dir_x + (factor * data->plane_x);
 	ray->ray_dir_y = data->dir_y + (factor * data->plane_y);
-	ray->d_x += ray->ray_dir_x;
-	ray->d_y += ray->ray_dir_y;
 	mlx_pixel_put(data->mlx, data->win, data->pos_x + ray->d_x * 32, data->pos_y + ray->d_y * 32, to_rgb(255, 0, 0)); // REMOVE
 }
 

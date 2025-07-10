@@ -6,30 +6,17 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:03:48 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/09 19:05:51 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 17:51:20 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
 #define RAY_SNAP_DIST 0.00001
+#define RENDER_DISTANCE 15
 
 /**
- * Checks how many steps the vector eneds to cross an axis
- * 
- * ISSUE:
- * When pos is close to 1, and dir is positive
- * or pos is close to 0 and dir is negative
- * Then Delta becomes 0, which it shouldnt be unless dir is 0
- * Basically, being at the edges means seeing the edge as already reached
- * Meaning that no movement is performed
- * SOLUTION:
- * Snapping - 
- * when pos very close to edge (1 or 0), 
- * and dir not being 0, 
- * set delta x to be +/- 1, 
- * in addtition to whatever difference there is from pos to the closer edge
- * 
+ * Checks how many steps the vector needs to cross an axis
  * Take the delta, how much to move,
  * on this line to reach the edge towards the vector direction,
  * or the nexte edge, if you are on an extreme value, like 0 or 1
@@ -38,7 +25,9 @@
  * (distance) / (distance / step) = (steps)
  * to figure out how many times to move with the vector, 
  * to reach the next edge
- * Returns this factor
+ * @param: pos - the position along a specific axis, from 0.0 -to 0.99999
+ * @param: dir - the part of the vector for this axis
+ * @return: the factor how many times to move the vector until crossing
  */
 static double	st_axis_dist(double pos, double dir)
 {
@@ -85,31 +74,32 @@ static void	st_single_step(t_ray *ray)
 	ray->d_x += factor * ray->ray_dir_x;
 	ray->d_y += factor * ray->ray_dir_y;
 	ray->wall_dist += sqrt(pow(factor * ray->ray_dir_x, 2) + pow(factor * ray->ray_dir_y, 2));
-	printf("Moved Ray to %f %f\n\n", ray->d_x, ray->d_y);
+}
+
+static void	st_draw(t_data *data, t_ray *ray)
+{
+	mlx_pixel_put(data->mlx, data->win, ray->d_x * 32 , ray->d_y * 32, \
+	to_rgb(255, 0, 255));
 }
 
 /**
- * In theory:
+ * Moves the ray until it hits something
+ * Moves in the direction of the rays vector
+ * until it hits the Render Distance,
+ * goes out of bounds,
+ * or hits a wall (last part not implemented)
 */
-void	step_ray(t_ray *ray)
+void	step_ray(t_data *data, t_ray *ray)
 {
-	st_single_step(ray);
-	st_single_step(ray);
-	st_single_step(ray);
+	int	i;
+
+	i = -1;
+	while (++i < RENDER_DISTANCE)
+	{
+		st_single_step(ray);
+		if (oob_check((double)data->minfo->width, (double)data->minfo->height, \
+	ray->d_x, ray->d_y))
+			break ;
+		st_draw(data, ray);
+	}
 }
-
-int main(void)
-{
-	t_ray ray;
-
-	ray.d_x = 1.0;
-	ray.d_y = 1.6;
-	ray.ray_dir_x = 0;
-	ray.ray_dir_y = 1;
-	step_ray(&ray);
-	return (0);
-}
-
-/**
- * rm a.out ; cc -Wall -Wextra -Werror sources/raycasting/step_ray.c -lm ; clear ; ./a.out
- */

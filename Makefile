@@ -53,6 +53,7 @@ utils/find_cins.c \
 utils/get_next_line_utils.c \
 utils/get_next_line.c \
 utils/my_pixel_put.c \
+utils/oob_check.c \
 utils/to_rgb.c
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))

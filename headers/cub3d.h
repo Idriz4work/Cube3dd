@@ -105,7 +105,7 @@ void	render_image(t_data *data);
 void	cast_ray(t_data *data, t_ray *ray, int x);
 void	render_ray(t_data *data, t_ray *ray, int x);
 void	fake_render_ray(t_data *data, t_ray *ray);
-void	step_ray(t_ray *ray);
+void	step_ray(t_data *data, t_ray *ray);
 
 // Rendering functions
 void	make_background(t_data *data);
@@ -122,6 +122,7 @@ void	my_pixel_put(t_img *img, int x, int y, int color);
 void	data_setup(t_data *data);
 double	deg_to_rad(double degree);
 void	angle_vector(double *x_dir, double *y_dir, double rot, double distance);
+int		oob_check(double x_max, double y_max, double x, double y);
 
 // MLX event functions
 int		key_end(int keycode, t_data *data);
