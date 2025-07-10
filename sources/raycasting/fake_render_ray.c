@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 19:04:29 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 20:49:20 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 21:12:01 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	fake_render_ray(t_data *data, t_ray *ray)
 		color = to_rgb(0, 0, 255);
 	while (++i < max)
 	{
-		mlx_pixel_put(data->mlx, data->win, ray->wall_x, WINDOW_HEIGHT - 1 - i, color);
+		mlx_pixel_put(data->mlx, data->win, ray->ray_x, WINDOW_HEIGHT - 1 - i, color);
 	}
 }

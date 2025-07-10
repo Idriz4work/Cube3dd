@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:03:48 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 20:46:35 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 21:08:20 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,20 @@ static void	st_single_step(t_ray *ray)
 	double	y_factor;
 	double	factor;
 
-	x_factor = st_axis_dist(fmod(ray->d_x, 1.0), ray->ray_dir_x);
-	y_factor = st_axis_dist(fmod(ray->d_y, 1.0), ray->ray_dir_y);
+	x_factor = st_axis_dist(fmod(ray->pos_x, 1.0), ray->vect_x);
+	y_factor = st_axis_dist(fmod(ray->pos_y, 1.0), ray->vect_y);
 	if (fabs(x_factor) < fabs(y_factor))
 		factor = x_factor;
 	else
 		factor = y_factor;
-	ray->d_x += factor * ray->ray_dir_x;
-	ray->d_y += factor * ray->ray_dir_y;
-	ray->wall_dist += sqrt(pow(factor * ray->ray_dir_x, 2) + pow(factor * ray->ray_dir_y, 2));
+	ray->pos_x += factor * ray->vect_x;
+	ray->pos_y += factor * ray->vect_y;
+	ray->wall_dist += sqrt(pow(factor * ray->vect_x, 2) + pow(factor * ray->vect_y, 2));
 }
 
 static void	st_draw(t_data *data, t_ray *ray)
 {
-	mlx_pixel_put(data->mlx, data->win, ray->d_x * 32 , ray->d_y * 32, \
+	mlx_pixel_put(data->mlx, data->win, ray->pos_x * 32 , ray->pos_y * 32, \
 	to_rgb(255, 0, 255));
 }
 
@@ -98,7 +98,7 @@ void	step_ray(t_data *data, t_ray *ray)
 	{
 		st_single_step(ray);
 		if (oob_check((double)data->minfo->width, (double)data->minfo->height, \
-	ray->d_x, ray->d_y))
+	ray->pos_x, ray->pos_y))
 			break ;
 		if (collision_check(data, ray) != -1)
 			break ;
