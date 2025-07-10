@@ -38,6 +38,8 @@ raycasting/cast_ray.c \
 raycasting/fake_render_ray.c \
 raycasting/render_image.c \
 raycasting/step_ray.c \
+raycasting/ray_collision_detection.c \
+raycasting/ray_collision_detection_helper.c \
 rendering/make_background.c \
 rendering/make_minimap.c \
 rendering/update_display.c \
