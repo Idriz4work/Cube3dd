@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 21:22:31 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 21:49:52 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	st_get_vector(t_data *data, t_ray *ray)
 {
 	double	factor;
 
-	factor = ((ray->ray_x * 2) / (WINDOW_WIDTH - 1)) - 1;
+	factor = (((double)ray->ray_x * 2) / (WINDOW_WIDTH - 1)) - 1;
 	ray->vect_x = data->dir_x + (factor * data->plane_x);
 	ray->vect_y = data->dir_y + (factor * data->plane_y);
 }
