@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:27:58 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/08 19:12:32 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 19:35:08 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	render_image(t_data *data)
 	t_ray	ray;
 
 	i = -1;
+	make_background(data);
+	make_minimap(data);
 	while (++i < WINDOW_WIDTH)
 	{
 		cast_ray(data, &ray, i);

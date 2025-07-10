@@ -6,14 +6,14 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:03:48 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 17:51:20 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 20:46:35 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
 #define RAY_SNAP_DIST 0.00001
-#define RENDER_DISTANCE 15
+#define RENDER_DISTANCE 10
 
 /**
  * Checks how many steps the vector needs to cross an axis
@@ -99,6 +99,8 @@ void	step_ray(t_data *data, t_ray *ray)
 		st_single_step(ray);
 		if (oob_check((double)data->minfo->width, (double)data->minfo->height, \
 	ray->d_x, ray->d_y))
+			break ;
+		if (collision_check(data, ray) != -1)
 			break ;
 		st_draw(data, ray);
 	}

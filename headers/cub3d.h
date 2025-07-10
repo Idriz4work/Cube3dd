@@ -106,6 +106,7 @@ void	cast_ray(t_data *data, t_ray *ray, int x);
 void	render_ray(t_data *data, t_ray *ray, int x);
 void	fake_render_ray(t_data *data, t_ray *ray);
 void	step_ray(t_data *data, t_ray *ray);
+int		collision_check(t_data *data, t_ray *ray);
 
 // Function declaration 
 int	*get_ray_collision_info(t_data *data, t_ray *ray, int result[2]);
@@ -115,7 +116,6 @@ int	st_determine_wall_side(t_ray *ray);
 // Rendering functions
 void	make_background(t_data *data);
 void	make_minimap(t_data *data);
-void	update_display(t_data *data);
 
 
 // Utility functions

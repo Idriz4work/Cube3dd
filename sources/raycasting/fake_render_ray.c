@@ -6,11 +6,11 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 19:04:29 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/08 19:19:01 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 20:49:20 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DISTANCE_SCALING 40
+#define DISTANCE_SCALING 8
 #define NORMAL_HEIGHT 4
 #include "../../headers/cub3d.h"
 
@@ -26,7 +26,7 @@ void	fake_render_ray(t_data *data, t_ray *ray)
 	int	color;
 
 	i = -1;
-	max = NORMAL_HEIGHT + ray->wall_dist / DISTANCE_SCALING;
+	max = NORMAL_HEIGHT + 100 -(ray->wall_dist * DISTANCE_SCALING);
 	color = to_rgb(0, 0, 0);
 	if (ray->side == NORTH_TEX)
 		color = to_rgb(255, 255, 255);
