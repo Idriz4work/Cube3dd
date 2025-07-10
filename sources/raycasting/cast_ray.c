@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 19:01:47 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/10 21:22:31 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,16 @@
 */
 static void	st_setup_ray(t_data *data, t_ray *ray, int x)
 {
-	ray->ray_dir_x = 0;
-	ray->ray_dir_y = 0;
-	ray->delta_dist_x = 0;
-	ray->delta_dist_y = 0;
-	ray->d_x = (double)data->pos_x;
-	ray->d_y = (double)data->pos_y;
-	ray->side_dist_x = 0;
-	ray->side_dist_y = 0;
-	ray->step_x = 0;
-	ray->step_y = 0;
+	ray->vect_x = 0;
+	ray->vect_y = 0;
+	ray->pos_x = (double)data->pos_x;
+	ray->pos_y = (double)data->pos_y;
 	ray->side = 0;
 	ray->wall_dist = 0;
-	ray->wall_height = 0;
 	ray->draw_start = 0;
 	ray->draw_end = 0;
-	ray->tex_x = 0;
-	ray->map_x = 0;
-	ray->map_y = 0;
-	ray->wall_x = x;
+	ray->ray_x = x;
+	ray->wall_x = 0;
 }
 
 /**
@@ -51,10 +42,9 @@ static void	st_get_vector(t_data *data, t_ray *ray)
 {
 	double	factor;
 
-	factor = ((ray->wall_x * 2) / (WINDOW_WIDTH - 1)) - 1;
-	ray->ray_dir_x = data->dir_x + (factor * data->plane_x);
-	ray->ray_dir_y = data->dir_y + (factor * data->plane_y);
-	mlx_pixel_put(data->mlx, data->win, data->pos_x + ray->d_x * 32, data->pos_y + ray->d_y * 32, to_rgb(255, 0, 0)); // REMOVE
+	factor = ((ray->ray_x * 2) / (WINDOW_WIDTH - 1)) - 1;
+	ray->vect_x = data->dir_x + (factor * data->plane_x);
+	ray->vect_y = data->dir_y + (factor * data->plane_y);
 }
 
 /** 

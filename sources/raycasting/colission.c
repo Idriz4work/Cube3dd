@@ -22,14 +22,14 @@
 
 static int	st_wall_check(t_data *data, int x, int y)
 {
-	printf("Checking %i %i\n", x, y);
+	// printf("Checking %i %i\n", x, y);
 	if (x < 0 || x > data->minfo->width)
 		return (0);
 	if (y < 0 || y > data->minfo->height)
 		return (0);
 	if (data->minfo->grid[y][x] == '1')
 		return (1);
-	printf("Is free\n");
+	// printf("Is free\n");
 	return (0);
 }
 
@@ -38,21 +38,21 @@ int	collision_check(t_data *data, t_ray *ray)
 	int	x;
 	int	y;
 
-	printf("For %f %f: \n", ray->d_x, ray->d_y);
-	y = (int)ray->d_y;
-	x = (int)ray->d_x;
+	// printf("For %f %f: \n", ray->pos_x, ray->pos_y);
+	y = (int)ray->pos_y;
+	x = (int)ray->pos_x;
 	if (!st_wall_check(data, x, y))
 		return (-1);
-	if (fmod(ray->d_x, 1) > 1 - COL_SENS || fmod(ray->d_x, 1) < COL_SENS)	
+	if (fmod(ray->pos_x, 1) > 1 - COL_SENS || fmod(ray->pos_x, 1) < COL_SENS)	
 	{
-		if (ray->ray_dir_x >= 0)
+		if (ray->vect_x >= 0)
 			ray->side = WEST_TEX;
 		else
 			ray->side = EAST_TEX;
 	}
-	else if (fmod(ray->d_y, 1) > 1 - COL_SENS || fmod(ray->d_y, 1) < COL_SENS)	
+	else if (fmod(ray->pos_y, 1) > 1 - COL_SENS || fmod(ray->pos_y, 1) < COL_SENS)	
 	{
-		if (ray->ray_dir_y >= 0)
+		if (ray->vect_y >= 0)
 			ray->side = SOUTH_TEX;
 		else
 			ray->side = NORTH_TEX;
