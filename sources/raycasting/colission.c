@@ -38,19 +38,22 @@ int	collision_check(t_data *data, t_ray *ray)
 	int	x;
 	int	y;
 
-	// printf("For %f %f: \n", ray->pos_x, ray->pos_y);
-	y = (int)ray->pos_y;
-	x = (int)ray->pos_x;
+	x = (int)ray->int_x;
+	y = (int)ray->int_y;
 	if (!st_wall_check(data, x, y))
+	{
+		printf("Free at: %i %i \n", x, y);
 		return (-1);
-	if (fmod(ray->pos_x, 1) > 1 - COL_SENS || fmod(ray->pos_x, 1) < COL_SENS)	
+	}
+	printf("Wall at: %i %i \n", x, y);
+	if (fmod(x, 1) > 1 - COL_SENS || fmod(x, 1) < COL_SENS)	
 	{
 		if (ray->vect_x >= 0)
 			ray->side = WEST_TEX;
 		else
 			ray->side = EAST_TEX;
 	}
-	else if (fmod(ray->pos_y, 1) > 1 - COL_SENS || fmod(ray->pos_y, 1) < COL_SENS)	
+	else if (fmod(y, 1) > 1 - COL_SENS || fmod(y, 1) < COL_SENS)	
 	{
 		if (ray->vect_y >= 0)
 			ray->side = SOUTH_TEX;

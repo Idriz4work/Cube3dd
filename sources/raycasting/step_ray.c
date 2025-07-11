@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:03:48 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 21:08:20 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/11 15:25:40 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,31 @@
 
 #define RAY_SNAP_DIST 0.00001
 #define RENDER_DISTANCE 10
+
+double delta_to_next_whole(double pos, double vec)
+{
+	// Get the fractional part using basic operators
+	double	frac = fmod(pos, 1.0);
+
+	if (frac < 0.0)
+		frac = frac + 1.0;
+
+	// Now compute distance based on direction
+	if (vec > 0.0)
+	{
+		if (frac == 0.0)
+			return (1.0);
+		return (1.0 - frac);
+	}
+	else if (vec < 0.0) 
+	{
+		if (frac == 0.0) 
+			return (-1.0);
+		return (-frac);
+	}
+	else 
+		return (0.0);
+}
 
 /**
  * Checks how many steps the vector needs to cross an axis
@@ -34,23 +59,11 @@ static double	st_axis_dist(double pos, double dir)
 	double	delta;
 	double	factor;
 
-	if (dir > 0)
-	{
-		if (pos >= (float)1 - RAY_SNAP_DIST)
-			delta = 1;
-		else
-			delta = 1 - (fmod(pos, 1.0));
-	}
-	else
-	{
-		if (pos <= RAY_SNAP_DIST)
-			delta = -1;
-		else
-			delta = 0 - (fmod(pos, 1.0));
-	}
+	delta = delta_to_next_whole(fmod(pos, 1.0), dir);
 	factor = delta / dir;
 	return (factor);
 }
+
 
 /**
  * Step the ray to the next edge
@@ -65,20 +78,55 @@ static void	st_single_step(t_ray *ray)
 	double	y_factor;
 	double	factor;
 
-	x_factor = st_axis_dist(fmod(ray->pos_x, 1.0), ray->vect_x);
-	y_factor = st_axis_dist(fmod(ray->pos_y, 1.0), ray->vect_y);
+	x_factor = st_axis_dist(ray->delta_x, ray->vect_x);
+	y_factor = st_axis_dist(ray->delta_y, ray->vect_y);
 	if (fabs(x_factor) < fabs(y_factor))
+	{
+		printf("Crossing Y Axis\n");
+		printf("Changing x from: %i to ", ray->int_x);
+		if (ray->vect_x >= 0)
+			ray->int_x++;
+		else
+			ray->int_x--;
+		printf("%i...\n", ray->int_x);
+		printf("Changing coords from %f %f to ", (double)ray->int_x + ray->delta_x, (double)ray->int_y + ray->delta_y);
+		ray->delta_x = 0;
 		factor = x_factor;
+		// printf("Setting delta Y from %f to %f\n", ray->delta_y, fmod(ray->delta_y + y_factor * ray->vect_y, 1.0));
+		ray->delta_y = fmod(ray->delta_y + x_factor * ray->vect_y, 1.0);
+		printf("%f %f\n", (double)ray->int_x + ray->delta_x, (double)ray->int_y + ray->delta_y);
+	}
 	else
+	{
+		printf("Crossing X Axis\n");
+		printf("Changing y from: %i to ", ray->int_y);
+		if (ray->vect_y >= 0)
+			ray->int_y++;
+		else
+			ray->int_y--;
+		printf("%i...\n", ray->int_y);
+		printf("Changing coords from %f %f to ", (double)ray->int_x + ray->delta_x, (double)ray->int_y + ray->delta_y);
+		ray->delta_y = 0;
 		factor = y_factor;
-	ray->pos_x += factor * ray->vect_x;
-	ray->pos_y += factor * ray->vect_y;
+		// printf("Setting delta X from %f to %f\n", ray->delta_x, fmod(ray->delta_x + x_factor * ray->vect_x, 1.0));
+		ray->delta_x = fmod(ray->delta_x + y_factor * ray->vect_x, 1);
+		printf("%f %f\n", (double)ray->int_x + ray->delta_x, (double)ray->int_y + ray->delta_y);
+	}
 	ray->wall_dist += sqrt(pow(factor * ray->vect_x, 2) + pow(factor * ray->vect_y, 2));
+	printf("NEW: Coords: %f, %f\n", (double)ray->int_x + ray->delta_x, (double)ray->int_y + ray->delta_y);
 }
+
+// Get delta_x (factor)
+// choose smaller one
+// increase map x and y
+// change sideDist
+// repeat until hit
 
 static void	st_draw(t_data *data, t_ray *ray)
 {
-	mlx_pixel_put(data->mlx, data->win, ray->pos_x * 32 , ray->pos_y * 32, \
+	mlx_pixel_put(data->mlx, data->win, \
+(ray->int_x + ray->delta_x) * 32, \
+(ray->int_y + ray->delta_y) * 32, \
 	to_rgb(255, 0, 255));
 }
 
@@ -98,10 +146,11 @@ void	step_ray(t_data *data, t_ray *ray)
 	{
 		st_single_step(ray);
 		if (oob_check((double)data->minfo->width, (double)data->minfo->height, \
-	ray->pos_x, ray->pos_y))
+	ray->int_x, ray->int_y))
 			break ;
 		if (collision_check(data, ray) != -1)
 			break ;
 		st_draw(data, ray);
 	}
+	printf("Ray Ended!\n\n");
 }
