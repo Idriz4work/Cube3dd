@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 15:40:02 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 21:49:52 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/11 17:31:59 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	st_setup_ray(t_data *data, t_ray *ray, int x)
 	ray->vect_y = 0;
 	ray->pos_x = (double)data->pos_x;
 	ray->pos_y = (double)data->pos_y;
-	ray->side = 0;
+	ray->side = -1;
 	ray->wall_dist = 0;
 	ray->draw_start = 0;
 	ray->draw_end = 0;

@@ -22,6 +22,7 @@
 # include <errno.h>
 # include <sys/time.h>
 # include <X11/X.h>
+#include <float.h>
 # include "../includes/Libft/libft.h"
 # include "../includes/minilibx-linux/mlx.h"
 # include "image_struct.h"
@@ -87,6 +88,7 @@
 
 // Rendering
 # define FOV 90
+#define RENDER_DISTANCE 10
 
 // Actions
 

@@ -29,6 +29,10 @@ typedef struct s_ray
 	double	vect_y;
 	double	pos_x;
 	double	pos_y;
+	int		int_x;
+	int		int_y;
+	double	delta_x;
+	double	delta_y;
 	/**----------------
 	 * For Rendering:
 	 * side =			Direction the hit wall is facing

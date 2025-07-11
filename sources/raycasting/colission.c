@@ -12,60 +12,78 @@
 
 #include "../../headers/cub3d.h"
 
-#define COL_SENS 0.01
-
 /**
  * Calculate the perpendicular wall distance
  * @param data: Game data containing player position
  * @param ray: The ray structure with DDA results
+ * @return: 1 if wall at x, y
+ * @return: 0 if not, or out of range
  */
 
 static int	st_wall_check(t_data *data, int x, int y)
 {
-	// printf("Checking %i %i\n", x, y);
 	if (x < 0 || x > data->minfo->width)
 		return (0);
 	if (y < 0 || y > data->minfo->height)
 		return (0);
 	if (data->minfo->grid[y][x] == '1')
 		return (1);
-	// printf("Is free\n");
 	return (0);
 }
 
-int	collision_check(t_data *data, t_ray *ray)
+/**
+ * Calculates and stores the walls texture index
+ * @return: 0 if invalid texture
+ * @return: 1 if valid texture
+ */
+static int	st_store_side(t_ray *ray)
 {
-	int	x;
-	int	y;
+	double	m_x;
+	double	m_y;
 
-	// printf("For %f %f: \n", ray->pos_x, ray->pos_y);
-	y = (int)ray->pos_y;
-	x = (int)ray->pos_x;
-	if (!st_wall_check(data, x, y))
-		return (-1);
-	if (fmod(ray->pos_x, 1) > 1 - COL_SENS || fmod(ray->pos_x, 1) < COL_SENS)	
+	m_x = fmod(ray->pos_x, 1);
+	m_y = fmod(ray->pos_y, 1);
+	if (m_x > 1 - DBL_EPSILON || m_x < DBL_EPSILON)	
 	{
 		if (ray->vect_x >= 0)
 			ray->side = WEST_TEX;
 		else
 			ray->side = EAST_TEX;
+		return (1);
 	}
-	else if (fmod(ray->pos_y, 1) > 1 - COL_SENS || fmod(ray->pos_y, 1) < COL_SENS)	
+	if (m_y > 1 - DBL_EPSILON || m_y < DBL_EPSILON)	
 	{
 		if (ray->vect_y >= 0)
 			ray->side = SOUTH_TEX;
 		else
 			ray->side = NORTH_TEX;
+		return (1);
 	}
-	else
-	{
-		ray->side = -1;
-		return (-1);
-	}
+	ray->side = -1;
 	return (0);
 }
 
-// Moving up or right, does not increas x or y enough to count as in the next square
+/**
+ * Checks if the ray has collided with a wall
+ * Also calculates which texure index that wall has
+ * and stores that index in ray->side
+ * @return: 0 if no wall
+ * @return: 1 if hit wall
+ */
+int	collision_check(t_data *data, t_ray *ray)
+{
+	int		x;
+	int		y;
 
-// if either coordinate is extreme
-// change that coordinate by a miniscule fraction of the vector
+	if (ray->vect_x < 0)
+		x = (int)(ray->pos_x - DBL_EPSILON);
+	else
+		x = (int)(ray->pos_x);
+	if (ray->vect_y < 0)
+		y = (int)(ray->pos_y - DBL_EPSILON);
+	else
+		y = (int)(ray->pos_y);
+	if (!st_wall_check(data, x, y))
+		return (0);
+	return (st_store_side(ray));
+}
