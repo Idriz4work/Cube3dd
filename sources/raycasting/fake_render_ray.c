@@ -6,13 +6,13 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 19:04:29 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/11 18:14:35 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/11 18:21:47 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define DISTANCE_SCALING 2.0
 #define NORMAL_HEIGHT 4
-#define DARKNESS_INTENSITY 1.25
+#define DARKNESS_INTENSITY 1.4
 #define HEIGHT_SCALING 10
 #define MAX_HEIGHT 15
 #include "../../headers/cub3d.h"
