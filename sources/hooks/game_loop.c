@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:23:01 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 19:35:13 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/13 15:42:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,5 @@ int	game_loop(t_data *data)
 	render_image(data);
 	return (0);
 }
+
+

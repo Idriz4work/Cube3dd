@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:27:58 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 19:35:08 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/13 15:42:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	render_image(t_data *data)
 
 	i = -1;
 	make_background(data);
-	make_minimap(data);
 	while (++i < WINDOW_WIDTH)
 	{
 		cast_ray(data, &ray, i);
-		fake_render_ray(data, &ray);
+		render_ray(data, &ray, i);
 	}
+	make_minimap(data);
 }

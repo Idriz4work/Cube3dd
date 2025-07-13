@@ -118,7 +118,7 @@ int	st_determine_wall_side(t_ray *ray);
 // Rendering functions
 void	make_background(t_data *data);
 void	make_minimap(t_data *data);
-
+void	render_ray(t_data *data, t_ray *ray, int x);
 
 // Utility functions
 int		argc_check(int argc);
