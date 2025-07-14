@@ -13,6 +13,18 @@
 #include "../../headers/cub3d.h"
 
 /**
+ * Sets the rays side to the given int
+ * @param ray: The ray to set
+ * @param texture: Integer to set the ray->side to
+ * @return: 1
+ */
+static int	st_set_ray(t_ray *ray, int texture)
+{
+	ray->side = texture;
+	return (1);
+}
+
+/**
  * Check collision with vertical neighbors
  * @param data: Game data
  * @param ray: Ray structure
@@ -22,33 +34,17 @@
  * @param threshold: Proximity threshold
  * @return: 1 if collision found, 0 otherwise
  */
-int	st_check_vertical_neighbors(t_data *data, t_ray *ray, int map_x, int map_y)
+static int	st_vert_next(t_data *data, t_ray *ray, int map_x, int map_y)
 {
-	int		check_x;
-	int		check_y;
 	double	frac_x;
 
 	frac_x = ray->pos_x - floor(ray->pos_x);
-	if (frac_x < THRESHOLD && ray->vect_x < 0)
-	{
-		check_x = map_x - 1;
-		check_y = map_y;
-		if (wall_check(data, check_x, check_y))
-		{
-			ray->side = EAST_TEX;
-			return (1);
-		}
-	}
-	else if (frac_x > (1.0 - THRESHOLD) && ray->vect_x > 0)
-	{
-		check_x = map_x + 1;
-		check_y = map_y;
-		if (wall_check(data, check_x, check_y))
-		{
-			ray->side = WEST_TEX;
-			return (1);
-		}
-	}
+	if (frac_x < THRESHOLD && ray->vect_x < 0 \
+&& wall_check(data, map_x - 1, map_y))
+		return (st_set_ray(ray, EAST_TEX));
+	else if (frac_x > (1.0 - THRESHOLD) && ray->vect_x > 0 \
+&& wall_check(data, map_x + 1, map_y))
+		return (st_set_ray(ray, WEST_TEX));
 	return (0);
 }
 
@@ -62,33 +58,17 @@ int	st_check_vertical_neighbors(t_data *data, t_ray *ray, int map_x, int map_y)
  * @param threshold: Proximity threshold
  * @return: 1 if collision found, 0 otherwise
  */
-int	st_check_horizontal_neighbors(t_data *data, t_ray *ray, int map_x, int map_y)
+static int	st_horiz_next(t_data *data, t_ray *ray, int map_x, int map_y)
 {
-	int		check_x;
-	int		check_y;
 	double	frac_y;
 
 	frac_y = ray->pos_y - floor(ray->pos_y);
-	if (frac_y < THRESHOLD && ray->vect_y < 0)
-	{
-		check_x = map_x;
-		check_y = map_y - 1;
-		if (wall_check(data, check_x, check_y))
-		{
-			ray->side = NORTH_TEX;
-			return (1);
-		}
-	}
-	else if (frac_y > (1.0 - THRESHOLD) && ray->vect_y > 0)
-	{
-		check_x = map_x;
-		check_y = map_y + 1;
-		if (wall_check(data, check_x, check_y))
-		{
-			ray->side = SOUTH_TEX;
-			return (1);
-		}
-	}
+	if (frac_y < THRESHOLD && ray->vect_y < 0 \
+&& wall_check(data, map_x, map_y - 1))
+		return (st_set_ray(ray, NORTH_TEX));
+	else if (frac_y > (1.0 - THRESHOLD) && ray->vect_y > 0 \
+&& wall_check(data, map_x, map_y + 1))
+		return (st_set_ray(ray, SOUTH_TEX));
 	return (0);
 }
 
@@ -110,9 +90,9 @@ int	collision_check(t_data *data, t_ray *ray)
 		ray->side = get_wall_side(ray);
 		return (1);
 	}
-	if (st_check_vertical_neighbors(data, ray, map_x, map_y))
+	if (st_vert_next(data, ray, map_x, map_y))
 		return (1);
-	if (st_check_horizontal_neighbors(data, ray, map_x, map_y))
+	if (st_horiz_next(data, ray, map_x, map_y))
 		return (1);
 	return (0);
 }
