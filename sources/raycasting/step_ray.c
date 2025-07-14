@@ -6,13 +6,11 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:03:48 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/11 17:32:17 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/14 19:01:23 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
-
-#define RAY_SNAP_DIST 0.00001
 
 /**
  * Checks how many steps the vector needs to cross an axis
@@ -74,13 +72,8 @@ static void	st_single_step(t_ray *ray)
 		factor = y_factor;
 	ray->pos_x += factor * ray->vect_x;
 	ray->pos_y += factor * ray->vect_y;
-	ray->wall_dist += sqrt(pow(factor * ray->vect_x, 2) + pow(factor * ray->vect_y, 2));
-}
-
-static void	st_draw(t_data *data, t_ray *ray)
-{
-	mlx_pixel_put(data->mlx, data->win, ray->pos_x * 32 , ray->pos_y * 32, \
-	to_rgb(255, 0, 255));
+	ray->wall_dist += sqrt(pow(factor * ray->vect_x, 2) \
++ pow(factor * ray->vect_y, 2));
 }
 
 /**
@@ -99,10 +92,9 @@ void	step_ray(t_data *data, t_ray *ray)
 	{
 		st_single_step(ray);
 		if (oob_check((double)data->minfo->width, (double)data->minfo->height, \
-	ray->pos_x, ray->pos_y))
+ray->pos_x, ray->pos_y))
 			break ;
 		if (collision_check(data, ray))
 			break ;
-		st_draw(data, ray);
 	}
 }

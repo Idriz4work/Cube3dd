@@ -22,7 +22,7 @@
 # include <errno.h>
 # include <sys/time.h>
 # include <X11/X.h>
-#include <float.h>
+# include <float.h>
 # include "../includes/Libft/libft.h"
 # include "../includes/minilibx-linux/mlx.h"
 # include "image_struct.h"
@@ -88,7 +88,9 @@
 
 // Rendering
 # define FOV 90
-#define RENDER_DISTANCE 10
+# define RENDER_DISTANCE 10
+
+# define THRESHOLD 0.00001
 
 // Actions
 
@@ -106,19 +108,15 @@ void	move_camera(t_data *data);
 void	render_image(t_data *data);
 void	cast_ray(t_data *data, t_ray *ray, int x);
 void	render_ray(t_data *data, t_ray *ray, int x);
-void	fake_render_ray(t_data *data, t_ray *ray);
 void	step_ray(t_data *data, t_ray *ray);
 int		collision_check(t_data *data, t_ray *ray);
-
-// Function declaration 
-int	*get_ray_collision_info(t_data *data, t_ray *ray, int result[2]);
-void	st_calculate_wall_distance(t_data *data, t_ray *ray);
-int	st_determine_wall_side(t_ray *ray);
+int		get_wall_side(t_ray *ray);
 
 // Rendering functions
 void	make_background(t_data *data);
 void	make_minimap(t_data *data);
 void	render_ray(t_data *data, t_ray *ray, int x);
+void	render_wall(t_data *data, t_ray *ray, int x);
 
 // Utility functions
 int		argc_check(int argc);
@@ -131,6 +129,7 @@ void	data_setup(t_data *data);
 double	deg_to_rad(double degree);
 void	angle_vector(double *x_dir, double *y_dir, double rot, double distance);
 int		oob_check(double x_max, double y_max, double x, double y);
+int		wall_check(t_data *data, int x, int y);
 
 // MLX event functions
 int		key_end(int keycode, t_data *data);

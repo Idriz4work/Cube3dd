@@ -36,12 +36,13 @@ parsing/mapfile_setup.c \
 parsing/mapfile_verify_grid.c \
 raycasting/cast_ray.c \
 raycasting/colission.c \
-raycasting/fake_render_ray.c \
+raycasting/get_wall_side.c \
 raycasting/render_image.c \
-rendering/render_ray.c \
 raycasting/step_ray.c \
 rendering/make_background.c \
 rendering/make_minimap.c \
+rendering/render_ray.c \
+rendering/render_wall.c \
 utils/angle_vector.c \
 utils/argc_check.c \
 utils/atoi_limit.c \
@@ -55,7 +56,8 @@ utils/get_next_line_utils.c \
 utils/get_next_line.c \
 utils/my_pixel_put.c \
 utils/oob_check.c \
-utils/to_rgb.c
+utils/to_rgb.c \
+utils/wall_check.c 
 
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
 OBJS = $(SRC:%.c=%.o)
