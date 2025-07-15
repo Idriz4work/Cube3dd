@@ -130,6 +130,7 @@ double	deg_to_rad(double degree);
 void	angle_vector(double *x_dir, double *y_dir, double rot, double distance);
 int		oob_check(double x_max, double y_max, double x, double y);
 int		wall_check(t_data *data, int x, int y);
+void	setup_mlx(t_data *data);
 
 // MLX event functions
 int		key_end(int keycode, t_data *data);
