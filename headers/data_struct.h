@@ -22,7 +22,7 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	void	*text_buf[NUM_TEXTURES];
+	t_img	*tex[NUM_TEXTURES];
 	// For storing what the player is doing
 	int		action;
 	// Player position and direction

@@ -56,6 +56,7 @@ utils/get_next_line_utils.c \
 utils/get_next_line.c \
 utils/my_pixel_put.c \
 utils/oob_check.c \
+utils/setup_mlx.c \
 utils/to_rgb.c \
 utils/wall_check.c 
 

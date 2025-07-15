@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 19:06:37 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/14 19:09:48 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/15 19:04:01 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * Get default color for texture when no texture is loaded
-*/
+
 static int	get_default_texture_color(int texture_id)
 {
 	if (texture_id == NORTH_TEX)
@@ -27,29 +27,22 @@ static int	get_default_texture_color(int texture_id)
 		return (to_rgb(255, 0, 0));
 	return (0);
 }
-
+*/
 /**
  * Get pixel color from texture at given coordinates
  */
 static int	st_get_texture_pixel(t_data *data, int x, int y, int texture_id)
 {
-	(void)data;
-	(void)x;
-	(void)y;
-	return (get_default_texture_color(texture_id));
-	// If textures are loaded, use this code instead:
-	/*
-	t_img	*texture;
+	t_img	*text;
 	char	*pix;
 	int		color;
-	
-	texture = (t_img *)data->text_buf[texture_id];
-	if (!texture)
+
+	text = data->tex[texture_id];
+	if (!text)
 		return (0);
-	pix = texture->addr + (y * texture->line_length + x * (texture->bpp / 8));
+	pix = text->addr + (y * text->line_length + x * (text->bpp / 8));
 	color = *(int *)pix;
 	return (color);
-	*/
 }
 
 /**
