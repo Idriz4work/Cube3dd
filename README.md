@@ -32,8 +32,7 @@ Theese can be installed with the command below
 - Math library (-lm)
 
 ### Installing Prerequisites
-If you are missing some prerequisites, run this command,
-to install all the neccesary packages
+If you are missing some prerequisites, run this command, to install all the neccesary packages:
 (Admin/Sudo priviliges required)
    ```bash
    sudo apt install build-essential gcc git make
@@ -53,9 +52,9 @@ to install all the neccesary packages
    make
    ```
 ### Running the game
-The game requires a map file, which holds information about the map, which the game should load
-The repository comes prepared with some maps, in the "maps" folder
-Maps have to satisfy certain requirements, which the program will complain about if invalid
+The game requires a map file, which holds information about the map, which the game should load<br/>
+The repository comes prepared with some maps, in the "maps" folder<br/>
+Maps have to satisfy certain requirements, which the program will complain about if invalid<br/>
 
 Different ways of running the game:
 1. Quick Run:
@@ -64,46 +63,52 @@ Will run the game with the pre-delivered "test.cub" map file
    make run
    ```
 2. Custom Map:
-Replace MAP_PATH with something like "./maps/test.cub"
-Replace "test" from that with whatever other name your map has
+Replace MAP_PATH with something like "./maps/test.cub"<br/>
+Replace "test" from that with whatever other name your map has<br/>
 The map has to be in a ".cub" format
 	```bash
    ./cub3d MAP_PATH
    ```
 
 ### Map Files
-Map Files have to hold 3 types of information
-There should only be 1 of theese per line
-1.	4x A path to a texture file per corresponding wall
-	WALL_IDENTIFIER: WALL_TEXTURE
-	You will need to specify the direction for the wall, and then the texture file
-	WALL IDENTIFIERs are "NO", "SO", "WE" or "EA"
-	WALL_TEXTURE is the file, which has to be in an xpm file format
-	It is also expected that theese files are 64x64 pixels
-	Example:
-	NO: ./textures/rick.xpm
-2.	2x Color data for the ceiling and floor
-	IDENTIFIER RED_VALUE, GREEN_VALUE, BLUE_VALUE
-	IDENTIFIERs are 'C' or 'F'
-	The rgb values should be between (including) 0-255
-	Example:
-	C 0, 69, 255
-3.	The map
-	The map consists of ' ', '1', '0' and a single identifer for the player
-	Player identifers are 'N', 'E', 'S', or 'W', corresponding to the initial direction of the player
-	' ' are Empty Spaces, they can seperate map pieces, but may not be encountered by the player
-	'1' are walls, they limit the players movement and view, and should encase the player
-	'0' are free spaces, allowing the player to move on them
-	The player may be surrounded by free spaces, but the area HAS TO be surrounded in walls.
-The map should be the last piece of information in the file.
-All Map files are text files in the ".cub" file format.
-You can open the maps in the "maps" folder with a text editor for some examples
+Map Files have to hold 3 types of information<br/>
+There should only be 1 of theese per line<br/>
+1.	4x A path to a texture file per corresponding wall<br/>
+	WALL_IDENTIFIER: WALL_TEXTURE<br/>
+	You will need to specify the direction for the wall, and then the texture file<br/>
+	WALL IDENTIFIERs are "NO", "SO", "WE" or "EA"<br/>
+	WALL_TEXTURE is the file, which has to be in an xpm file format<br/>
+	It is also expected that theese files are 64x64 pixels<br/>
+	Example:<br/>
+	NO: ./textures/rick.xpm<br/>
+2.	2x Color data for the ceiling and floor<br/>
+	IDENTIFIER RED_VALUE, GREEN_VALUE, BLUE_VALUE<br/>
+	IDENTIFIERs are 'C' or 'F'<br/>
+	The rgb values should be between (including) 0-255<br/>
+	Example:<br/>
+	C 0, 69, 255<br/>
+3.	The map<br/>
+	The map consists of ' ', '1', '0' and a single identifer for the player<br/>
+	Player identifers are 'N', 'E', 'S', or 'W', corresponding to the initial direction of the player<br/>
+	' ' are Empty Spaces, they can seperate map pieces, but may not be encountered by the player<br/>
+	'1' are walls, they limit the players movement and view, and should encase the player<br/>
+	'0' are free spaces, allowing the player to move on them<br/>
+	The player may be surrounded by free spaces, but the area HAS TO be surrounded in walls.<br/>
+ 	Example:<br/>
+	111111<br/>
+  	1E01011<br/>
+  	1100001<br/>
+  	 1111111<br/>
+
+The map should be the last piece of information in the file<br/>
+All Map files are text files in the ".cub" file format<br/>
+You can open the maps in the "maps" folder with a text editor for some examples<br/>
 
 ## 📁 Project Structure
 
 ```
 cub3d/
-├── src/
+├── sources/
 │   ├── main.c
 │   ├── hooks/
 │   ├── movement/
