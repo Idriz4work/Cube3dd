@@ -7,10 +7,10 @@
 
 
 
-NO       ./textures/wall.xpm
-SO       ./textures/wall.xpm
-EA      ./textures/wall.xpm
-WE       ./textures/wall.xpm
+NO       ./textures/rick.xpm
+SO       ./textures/rick.xpm
+EA      ./textures/rick.xpm
+WE       ./textures/rick.xpm
 F     62,44,     143   
 C  90,             26,217         
 

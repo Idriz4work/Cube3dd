@@ -6,30 +6,19 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 19:06:37 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/15 19:04:01 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/16 17:29:00 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
 /**
- * Get default color for texture when no texture is loaded
-
-static int	get_default_texture_color(int texture_id)
-{
-	if (texture_id == NORTH_TEX)
-		return (to_rgb(193, 193, 193));
-	else if (texture_id == SOUTH_TEX)
-		return (to_rgb(0, 255, 0));
-	else if (texture_id == EAST_TEX)
-		return (to_rgb(0, 0, 255));
-	else if (texture_id == WEST_TEX)
-		return (to_rgb(255, 0, 0));
-	return (0);
-}
-*/
-/**
  * Get pixel color from texture at given coordinates
+ * @param data: Data array with the texures
+ * @param x: X Coordinate of the pixel
+ * @param y: Y Coordinate of the pixel
+ * @param texture_id: Index of the chosen texure, like NORTH_TEXTURE
+ * @return: color as integer encoded
  */
 static int	st_get_texture_pixel(t_data *data, int x, int y, int texture_id)
 {
@@ -89,7 +78,7 @@ void	render_wall(t_data *data, t_ray *ray, int x)
 			tex_y = TEXTURE_SIZE - 1;
 		if (tex_y < 0)
 			tex_y = 0;
-		color = st_get_texture_pixel(data, x, tex_y, ray->side);
+		color = st_get_texture_pixel(data, ray->wall_x, tex_y, ray->side);
 		color = st_apply_dark(color, ray->wall_dist);
 		my_pixel_put(data->image, x, y, color);
 		tex_pos += step;
