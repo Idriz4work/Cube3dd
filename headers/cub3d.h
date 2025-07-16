@@ -88,7 +88,7 @@
 
 // Rendering
 # define FOV 90
-# define RENDER_DISTANCE 10
+# define RENDER_DISTANCE 100
 
 # define THRESHOLD 0.00001
 

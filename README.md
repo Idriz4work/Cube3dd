@@ -24,22 +24,80 @@ Cub3D is an advanced graphics project that builds upon concepts from so_long, im
 ## 🛠️ Setup and Installation
 
 ### Prerequisites
+Theese can be installed with the command below
 - MinilibX library
 - GCC compiler
+- Github
 - Make
 - Math library (-lm)
 
+### Installing Prerequisites
+If you are missing some prerequisites, run this command,
+to install all the neccesary packages
+(Admin/Sudo priviliges required)
+   ```bash
+   sudo apt install build-essential gcc git make
+   ```
+
 ### Installation Steps
 1. Clone the repository
-2. Install MinilibX:
-   ```bash
-   # For streamlined installation, consider using 42-cli tool
-   # OR install manually following MLX documentation
+	```bash
+   git clone https://github.com/Idriz4work/Cube3dd.git cub3d
+   ```
+2. Navigate into repository
+	```bash
+   cd cub3d
    ```
 3. Compile the project:
    ```bash
    make
    ```
+### Running the game
+The game requires a map file, which holds information about the map, which the game should load
+The repository comes prepared with some maps, in the "maps" folder
+Maps have to satisfy certain requirements, which the program will complain about if invalid
+
+Different ways of running the game:
+1. Quick Run:
+Will run the game with the pre-delivered "test.cub" map file
+	```bash
+   make run
+   ```
+2. Custom Map:
+Replace MAP_PATH with something like "./maps/test.cub"
+Replace "test" from that with whatever other name your map has
+The map has to be in a ".cub" format
+	```bash
+   ./cub3d MAP_PATH
+   ```
+
+### Map Files
+Map Files have to hold 3 types of information
+There should only be 1 of theese per line
+1.	4x A path to a texture file per corresponding wall
+	WALL_IDENTIFIER: WALL_TEXTURE
+	You will need to specify the direction for the wall, and then the texture file
+	WALL IDENTIFIERs are "NO", "SO", "WE" or "EA"
+	WALL_TEXTURE is the file, which has to be in an xpm file format
+	It is also expected that theese files are 64x64 pixels
+	Example:
+	NO: ./textures/rick.xpm
+2.	2x Color data for the ceiling and floor
+	IDENTIFIER RED_VALUE, GREEN_VALUE, BLUE_VALUE
+	IDENTIFIERs are 'C' or 'F'
+	The rgb values should be between (including) 0-255
+	Example:
+	C 0, 69, 255
+3.	The map
+	The map consists of ' ', '1', '0' and a single identifer for the player
+	Player identifers are 'N', 'E', 'S', or 'W', corresponding to the initial direction of the player
+	' ' are Empty Spaces, they can seperate map pieces, but may not be encountered by the player
+	'1' are walls, they limit the players movement and view, and should encase the player
+	'0' are free spaces, allowing the player to move on them
+	The player may be surrounded by free spaces, but the area HAS TO be surrounded in walls.
+The map should be the last piece of information in the file.
+All Map files are text files in the ".cub" file format.
+You can open the maps in the "maps" folder with a text editor for some examples
 
 ## 📁 Project Structure
 
@@ -47,10 +105,11 @@ Cub3D is an advanced graphics project that builds upon concepts from so_long, im
 cub3d/
 ├── src/
 │   ├── main.c
-│   ├── raycasting/
-│   ├── textures/
+│   ├── hooks/
 │   ├── movement/
 │   ├── parsing/
+│   ├── raycasting/
+│   ├── rendering/
 │   └── utils/
 ├── maps/
 ├── textures/
@@ -79,24 +138,24 @@ cub3d/
 - [x] Initialize player position and orientation
 - [x] Implement player movement (WASD keys)
 - [x] Add player rotation (arrow keys or mouse)
-- [ ] Implement collision detection
-- [ ] Add smooth movement and rotation
+- [x] Implement collision detection
+- [x] Add smooth movement and rotation
 - [ ] Variable speed implementation
 
 ### Phase 4: Raycasting Algorithm Implementation
 
 #### Step 1: Ray Direction Calculation
-- [ ] Implement camera plane setup
-- [ ] Calculate ray direction for each screen column
-- [ ] Set up player direction and plane vectors
+- [x] Implement camera plane setup
+- [x] Calculate ray direction for each screen column
+- [x] Set up player direction and plane vectors
 
 #### Step 2: Delta Distance Calculation
-- [ ] Calculate delta distances for x and y grid intersections
-- [ ] Implement grid position mapping
+- [x] Calculate delta distances for x and y grid intersections
+- [x] Implement grid position mapping
 
 #### Step 3: Step and Side Distance Calculation
-- [ ] Calculate step directions (±1)
-- [ ] Initialize side distances for ray traversal
+- [x] Calculate step directions (±1)
+- [x] Initialize side distances for ray traversal
 
 #### Step 4: Digital Differential Analysis (DDA)
 - [ ] Implement DDA algorithm
@@ -104,23 +163,23 @@ cub3d/
 - [ ] Track which side of wall was hit
 
 #### Step 5: Wall Height and Distance Calculation
-- [ ] Calculate wall distance from player
-- [ ] Determine wall height on screen
-- [ ] Calculate draw start and end positions
+- [x] Calculate wall distance from player
+- [x] Determine wall height on screen
+- [x] Calculate draw start and end positions
 
 ### Phase 5: Texture Implementation
-- [ ] Load textures into memory buffers
-- [ ] Implement texture coordinate calculation
-- [ ] Map wall intersection to texture coordinates
-- [ ] Handle different wall orientations (N, S, E, W)
+- [x] Load textures into memory buffers
+- [x] Implement texture coordinate calculation
+- [x] Map wall intersection to texture coordinates
+- [x] Handle different wall orientations (N, S, E, W)
 - [ ] Add shading for visual depth
 
 ### Phase 6: Rendering Optimization
 - [ ] Implement pixel map system
 - [ ] Optimize image buffer manipulation
-- [ ] Use MLX image functions instead of individual pixel drawing
-- [ ] Implement ceiling and floor coloring
-- [ ] Prevent screen flickering
+- [x] Use MLX image functions instead of individual pixel drawing
+- [x] Implement ceiling and floor coloring
+- [x] Prevent screen flickering
 
 ### Phase 7: Polish and Optimization
 - [ ] Fine-tune performance
@@ -137,14 +196,15 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	void	*text_buf[NUM_TEXTURES];
-	// Player position and direction
+	t_img	*tex[NUM_TEXTURES];
+	int		action;
 	double	pos_x;
 	double	pos_y;
-	double	dir;
+	double	rot;
 	double	plane_x;
 	double	plane_y;
-	// Image buffer for rendering
+	double	dir_x;
+	double	dir_y;
 	t_img	*image;
 	int		**pixels_map;
 	t_map	*minfo;
@@ -181,7 +241,7 @@ typedef struct s_map
 ## 🧮 Mathematical Concepts
 
 ### Essential Formulas
-- **Ray Direction**: `ray_dir = player_dir + camera_plane * camera_x`
+- **Ray Direction**: `ray_dir = player_dir + cam_dir + camera_plane * camera_x`
 - **Delta Distance**: `delta_dist = |1 / ray_dir|`
 - **Wall Distance**: `wall_dist = (map_pos - player_pos + adjustment) / ray_dir`
 - **Texture Coordinate**: `tex_x = wall_x * TEXTURE_SIZE`
@@ -249,11 +309,12 @@ typedef struct s_map
 
 ## 🏆 Bonus Features Ideas
 
-- Minimap display
-- Sprite rendering
-- Sound effects
-- Multiple levels
-- Mouse look control
+- [x] Wall collision
+- [x] Minimap display
+- [ ] Sprite rendering
+- [ ] Sound effects
+- [ ] Multiple levels
+- [ ] Mouse look control
 
 ---
 
