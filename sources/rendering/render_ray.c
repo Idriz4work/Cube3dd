@@ -39,15 +39,12 @@ static void	st_calc_texture_x(t_ray *ray)
 	int		tex_x;
 
 	if (ray->side == NORTH_TEX || ray->side == SOUTH_TEX)
-		wall_x = ray->pos_x;
+		wall_x = fmod(ray->pos_x, 1);
 	else
-		wall_x = ray->pos_y;
-	wall_x -= floor(wall_x);
+		wall_x = fmod(ray->pos_y, 1);
+	if ((ray->side == SOUTH_TEX) || (ray->side == EAST_TEX))
+		wall_x = 1 - wall_x;
 	tex_x = (int)(wall_x * (double)TEXTURE_SIZE);
-	if ((ray->side == NORTH_TEX || ray->side == SOUTH_TEX) && ray->vect_x > 0)
-		tex_x = TEXTURE_SIZE - tex_x - 1;
-	if ((ray->side == EAST_TEX || ray->side == WEST_TEX) && ray->vect_y < 0)
-		tex_x = TEXTURE_SIZE - tex_x - 1;
 	ray->wall_x = tex_x;
 }
 
