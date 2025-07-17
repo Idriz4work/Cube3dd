@@ -139,4 +139,6 @@ void	setup_hooks(t_data *data);
 int		game_loop(t_data *data);
 int		end_game(t_data *data);
 
+// Bonus functions
+
 #endif
