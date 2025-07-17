@@ -2,118 +2,157 @@ NAME = cub3d
 
 CXX = gcc
 CFLAGS = -Wall -Wextra -Werror -g
-MLX_FLAGS = -L./includes/minilibx-linux -lmlx -L/usr/lib/X11 -lXext -lX11
-INCLUDES = -I /usr/include -I ./includes/minilibx-linux
+MLX_FLAGS = -L./includes/minilibx-linux -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
+INCLUDES = -I /usr/include -I ./includes/minilibx-linux 
 
 SRC_DIR = ./sources/
 OBJ_DIR = ./objs/
+NORMAL_DIR = normal/
+BONUS_DIR = bonus/
 LIBFT_DIR = ./includes/Libft
 MLX_DIR = ./includes/minilibx-linux
 
-BONUS = 1
+BONUS_NAME = $(NAME)_bonus
 
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 MLX_LIB = $(MLX_DIR)/libmlx.a
 
-SRC = \
-main.c\
-hooks/action_trigger.c \
-hooks/game_loop.c \
-hooks/key_end.c \
-hooks/setup_hooks.c \
-movement/move.c \
-movement/turn.c \
-movement/move_camera.c \
-parsing/load_map.c \
-parsing/mapfile_build_list.c \
-parsing/mapfile_check_color.c \
-parsing/mapfile_check_texture.c \
-parsing/mapfile_complain.c \
-parsing/mapfile_content.c \
-parsing/mapfile_ll_to_grid.c \
-parsing/mapfile_open.c \
-parsing/mapfile_setup.c \
-parsing/mapfile_verify_grid.c \
-raycasting/cast_ray.c \
-raycasting/colission.c \
-raycasting/get_wall_side.c \
-raycasting/render_image.c \
-raycasting/step_ray.c \
-rendering/make_background.c \
-rendering/make_minimap.c \
-rendering/render_ray.c \
-rendering/render_wall.c \
-utils/angle_vector.c \
-utils/argc_check.c \
-utils/atoi_limit.c \
-utils/charlist_functions.c \
-utils/data_setup.c \
-utils/deg_to_rad.c \
-utils/end_game.c \
-utils/error.c \
-utils/find_cins.c \
-utils/get_next_line_utils.c \
-utils/get_next_line.c \
-utils/my_pixel_put.c \
-utils/oob_check.c \
-utils/setup_mlx.c \
-utils/to_rgb.c \
-utils/wall_check.c 
+HOOK_SRC = $(addprefix hooks/, \
+action_trigger \
+game_loop \
+key_end \
+setup_hooks)
+MOVEMENT_SRC = $(addprefix movement/, \
+move \
+turn \
+move_camera)
+PARSING_SRC = $(addprefix parsing/, \
+load_map \
+mapfile_build_list \
+mapfile_check_color \
+mapfile_check_texture \
+mapfile_complain \
+mapfile_content \
+mapfile_ll_to_grid \
+mapfile_open \
+mapfile_setup \
+mapfile_verify_grid)
+RAYCASTING_SRC = $(addprefix raycasting/, \
+cast_ray \
+colission \
+get_wall_side \
+render_image \
+step_ray)
+RENDER_SRC = $(addprefix rendering/, \
+make_background \
+make_minimap \
+render_ray \
+render_wall)
+UTILS_SRC = $(addprefix utils/, \
+angle_vector \
+argc_check \
+atoi_limit \
+charlist_functions \
+data_setup \
+deg_to_rad \
+end_game \
+error \
+find_cins \
+get_next_line_utils \
+get_next_line \
+my_pixel_put \
+oob_check \
+setup_mlx \
+to_rgb \
+wall_check)
+SRC = $(addsuffix .c, main $(HOOK_SRC) $(MOVEMENT_SRC) $(PARSING_SRC) $(RAYCASTING_SRC) $(RENDER_SRC) $(UTILS_SRC))
+# BONUS_SRC = category/name_bonus.c
 
-SRC_FILES = $(addprefix $(SRC_DIR), $(SRC))
-OBJS = $(SRC:%.c=%.o)
-OBJ_FILES = $(addprefix $(OBJ_DIR), $(OBJS))
+NORM_OBJS = $(addprefix $(OBJ_DIR)$(NORMAL_DIR), $(SRC:%.c=%.o))
+BONUS_OBJS = $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(SRC:%.c=%.o))
+# BONUS_OBJS += $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(BONUS_SRC:%.c=%.o))
+
+#######################################################################################
 
 all: $(MLX_DIR) $(OBJ_DIR) $(LIBFT_LIB) $(NAME)
 
-$(NAME): $(LIBFT_LIB) $(OBJ_FILES)
-	$(CXX) $(CFLAGS) -DBONUS=$(BONUS) $(OBJ_FILES) \
-	$(MLX_FLAGS) $(LIBFT_LIB) -lm -o $@
+bonus: $(BONUS_NAME)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR) $(MLX_DIR)
+# Compile normal program
+$(NAME): $(LIBFT_LIB) $(NORM_OBJS)
+	$(CXX) $(CFLAGS) -DBONUS=0 $(NORM_OBJS) \
+	$(MLX_FLAGS) $(LIBFT_LIB) -o $@
+
+# Compile bonus program
+$(BONUS_NAME): $(LIBFT_LIB) $(BONUS_OBJS)
+	$(CXX) $(CFLAGS) -DBONUS=1 $(BONUS_OBJS) \
+	$(MLX_FLAGS) $(LIBFT_LIB) -o $@
+
+# Compile objects in normal mode
+$(OBJ_DIR)$(NORMAL_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR) $(MLX_DIR)
 	make -C $(MLX_DIR)
-	$(CXX) $(CFLAGS) -DBONUS=$(BONUS) $(INCLUDES) -c $< -o $@
+	$(CXX) $(CFLAGS) -DBONUS=0 $(INCLUDES) -c $< -o $@
 
+# Compile objects in bonus mode
+$(OBJ_DIR)$(BONUS_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR) $(MLX_DIR)
+	make -C $(MLX_DIR)
+	$(CXX) $(CFLAGS) -DBONUS=1 $(INCLUDES) -c $< -o $@
+
+# Create directories for objects
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)hooks
-	mkdir -p $(OBJ_DIR)movement
-	mkdir -p $(OBJ_DIR)raycasting
-	mkdir -p $(OBJ_DIR)parsing
-	mkdir -p $(OBJ_DIR)rendering
-	mkdir -p $(OBJ_DIR)utils
+	mkdir -p $(OBJ_DIR)$(NORMAL_DIR)
+	mkdir -p $(OBJ_DIR)$(BONUS_DIR)
+	mkdir -p $(OBJ_DIR)$(NORMAL_DIR)hooks
+	mkdir -p $(OBJ_DIR)$(NORMAL_DIR)movement
+	mkdir -p $(OBJ_DIR)$(NORMAL_DIR)raycasting
+	mkdir -p $(OBJ_DIR)$(NORMAL_DIR)parsing
+	mkdir -p $(OBJ_DIR)$(NORMAL_DIR)rendering
+	mkdir -p $(OBJ_DIR)$(NORMAL_DIR)utils
+	mkdir -p $(OBJ_DIR)$(BONUS_DIR)hooks
+	mkdir -p $(OBJ_DIR)$(BONUS_DIR)movement
+	mkdir -p $(OBJ_DIR)$(BONUS_DIR)raycasting
+	mkdir -p $(OBJ_DIR)$(BONUS_DIR)parsing
+	mkdir -p $(OBJ_DIR)$(BONUS_DIR)rendering
+	mkdir -p $(OBJ_DIR)$(BONUS_DIR)utils
 
+# Compile Libft Library
 $(LIBFT_LIB):
 	make -C $(LIBFT_DIR)
 
+# Download MLX directory
 $(MLX_DIR):
 	git clone https://github.com/42Paris/minilibx-linux.git $@
 
-bonus:
-	make all BONUS=1
+# Quick run program on example map
+run: $(BONUS_NAME)
+	./$(BONUS_NAME) "maps/test.cub"
 
-run: $(NAME)
-	./$(NAME) "maps/test.cub"
-
+# Quick run program with valgrind
 val: $(NAME)
-	valgrind --leak-check=full ./$(NAME) "maps/test.cub"
+	valgrind --leak-check=full ./$(BONUS_NAME) "maps/test.cub"
 
+# Performs norm check, only showing fails
 norm:
 	norminette ./sources $(LIBFT_DIR) ./headers | grep -v "OK!"
 
-commit:
+# Prepares repo for committing
+commit: fclean
 	rm -rf $(MLX_DIR)
-	fclean
 
+# Removes Object Files
 clean:
 	make -C $(LIBFT_DIR) clean
-	make -sC $(MLX_DIR) clean
+	make -C $(MLX_DIR) clean
 	rm -rf $(OBJ_DIR)
 
+# Deletes all compiled files
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
+	rm -f $(BONUS_NAME)
 
+# Deletes and compiles everything
 re: fclean all
 
 .PHONY: all run val norm clean fclean re
