@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:20:39 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/10 17:45:00 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/17 18:20:11 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
  */
 int	oob_check(double x_max, double y_max, double x, double y)
 {
-	if (x < 0 || x > x_max)
+	if (x < 0 || x >= x_max)
 		return (1);
-	if (y < 0 || y > y_max)
+	if (y < 0 || y >= y_max)
 		return (1);
 	return (0);
 }
