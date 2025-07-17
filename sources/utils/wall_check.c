@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 19:13:49 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/14 19:14:06 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/17 18:20:06 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 int	wall_check(t_data *data, int x, int y)
 {
-	if (x < 0 || x > data->minfo->width)
+	if (x < 0 || x >= data->minfo->width)
 		return (0);
-	if (y < 0 || y > data->minfo->height)
+	if (y < 0 || y >= data->minfo->height)
 		return (0);
 	if (data->minfo->grid[y][x] == '1')
 		return (1);
