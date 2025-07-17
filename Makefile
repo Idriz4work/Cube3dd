@@ -70,7 +70,7 @@ SRC = $(addsuffix .c, main $(HOOK_SRC) $(MOVEMENT_SRC) $(PARSING_SRC) $(RAYCASTI
 
 NORM_OBJS = $(addprefix $(OBJ_DIR)$(NORMAL_DIR), $(SRC:%.c=%.o))
 BONUS_OBJS = $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(SRC:%.c=%.o))
-# BONUS_OBJS = $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(SRC:%.c=%.o) $(BONUS_SRC:%.c=%.o))
+# BONUS_OBJS += $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(BONUS_SRC:%.c=%.o))
 
 #######################################################################################
 
