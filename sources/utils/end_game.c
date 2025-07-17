@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 17:01:44 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/15 18:30:44 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/17 13:20:19 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	end_game(t_data *data)
 	i = -1;
 	while (++i < 4)
 	{
-		if (data->tex != NULL && data->tex[i]->img != NULL)
+		if (data->tex[i] != NULL && data->tex[i]->img != NULL)
 		{
 			mlx_destroy_image(data->mlx, data->tex[i]->img);
 			free(data->tex[i]);
