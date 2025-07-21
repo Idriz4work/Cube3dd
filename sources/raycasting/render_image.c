@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 12:27:58 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/14 18:49:32 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:20:13 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	render_image(t_data *data)
 		cast_ray(data, &ray, i);
 		render_ray(data, &ray, i);
 	}
-	make_minimap(data);
+	if (BONUS)
+		make_minimap(data);
 }

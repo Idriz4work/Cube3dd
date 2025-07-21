@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:03:28 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/15 19:02:30 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:03:06 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	st_setup_player(t_data *data)
 		if (type == 'N' || type == 'E' || type == 'S' || type == 'W')
 			break ;
 	}
-	data->pos_x = i;
-	data->pos_y = j;
+	data->pos_x = (double)i + 0.5;
+	data->pos_y = (double)j + 0.5;
 	st_setup_direction(data, i, j);
 	data->minfo->grid[j][i] = '0';
 }

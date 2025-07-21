@@ -73,6 +73,28 @@ static int	st_horiz_next(t_data *data, t_ray *ray, int map_x, int map_y)
 }
 
 /**
+ * Fix wall flickering / disapearing
+ * If the player is inside a wall, looking to the south or east,
+ * then some rays will move through the wall through float mistakes
+ * This function steps the ray back by a tiny bit, if we are in a wall,
+ * and near one of the two map edges, so the inside of the wall
+ * will always be registered as a hit wall.
+ */
+static void	st_in_wall_fix(t_data *data, t_ray *ray)
+{
+	if (!wall_check(data, (int)floor(data->pos_x), (int)floor(data->pos_y)))
+		return ;
+	if (ray->vect_x > 0)
+	{
+		ray->pos_x -= 0.0001;
+	}
+	if (ray->vect_y > 0)
+	{
+		ray->pos_y -= 0.0001;
+	}
+}
+
+/**
  * Main collision check function
  * @param data: Game data containing map information
  * @param ray: Ray structure to check collision for
@@ -83,6 +105,7 @@ int	collision_check(t_data *data, t_ray *ray)
 	int		map_x;
 	int		map_y;
 
+	st_in_wall_fix(data, ray);
 	map_x = (int)floor(ray->pos_x);
 	map_y = (int)floor(ray->pos_y);
 	if (wall_check(data, map_x, map_y))

@@ -137,7 +137,7 @@ norm:
 	norminette ./sources $(LIBFT_DIR) ./headers | grep -v "OK!"
 
 # Prepares repo for committing
-commit: fclean
+commit:
 	rm -rf $(MLX_DIR)
 
 # Removes Object Files
