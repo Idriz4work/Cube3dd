@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:03:48 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/14 19:01:23 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/21 16:44:05 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,37 @@ static double	st_axis_dist(double pos, double dir)
 }
 
 /**
+ * Fix edge fraying in north and west
+ * If the ray is very close to the wall,
+ * then put the ray onto that wall, and mark it as a map border
+ * @return: 0 if ray continues normally
+ * @return: 1 if ray was merged into wall and ray should stop
+ */
+static int	st_edge_adjust(t_ray *ray)
+{
+	if (ray->pos_x < 0.00001)
+	{
+		ray->pos_x = 0;
+		ray->side = -1;
+		return (1);
+	}
+	if (ray->pos_y < 0.00001)
+	{
+		ray->pos_y = 0;
+		ray->side = -1;
+		return (1);
+	}
+	return (0);
+}
+
+/**
  * Step the ray to the next edge
  * Checks how far to move the vector until the next line is crossed
  * by checking the distance to the next vertical
  * as well as the next horizontal line
  * Then chooses the smaller distance, and moves that far
  */
-static void	st_single_step(t_ray *ray)
+static int	st_single_step(t_ray *ray)
 {
 	double	x_factor;
 	double	y_factor;
@@ -74,6 +98,7 @@ static void	st_single_step(t_ray *ray)
 	ray->pos_y += factor * ray->vect_y;
 	ray->wall_dist += sqrt(pow(factor * ray->vect_x, 2) \
 + pow(factor * ray->vect_y, 2));
+	return (st_edge_adjust(ray));
 }
 
 /**
@@ -90,7 +115,8 @@ void	step_ray(t_data *data, t_ray *ray)
 	i = -1;
 	while (++i < RENDER_DISTANCE)
 	{
-		st_single_step(ray);
+		if (st_single_step(ray))
+			break ;
 		if (oob_check((double)data->minfo->width, (double)data->minfo->height, \
 ray->pos_x, ray->pos_y))
 			break ;
