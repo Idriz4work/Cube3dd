@@ -6,13 +6,14 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:42:58 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/22 21:22:39 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/22 22:10:46 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 # define MMAP_SIZE 150
-# define MMAP_SCALE 10
+# define PLAYER_SIZE 5
+# define VIEW_DISTANCE 10
 
 static void st_hor_line(t_data *data, int x, int y, int color)
 {
@@ -85,11 +86,11 @@ static void	st_draw_player(t_data *data)
 	int		x;
 	int		y;
 
-	y = (MMAP_SIZE / 2) - (MMAP_SCALE / 2) - 1;
-	while (++y < (MMAP_SIZE / 2) + (MMAP_SCALE / 2))
+	y = (MMAP_SIZE / 2) - (PLAYER_SIZE / 2) - 1;
+	while (++y < (MMAP_SIZE / 2) + (PLAYER_SIZE / 2))
 	{
-		x = (MMAP_SIZE / 2) - (MMAP_SCALE / 2) - 1;
-		while (++x < (MMAP_SIZE / 2) + (MMAP_SCALE / 2))
+		x = (MMAP_SIZE / 2) - (PLAYER_SIZE / 2) - 1;
+		while (++x < (MMAP_SIZE / 2) + (PLAYER_SIZE / 2))
 		{
 			my_pixel_put(data->image, x, y, to_rgb(102, 102, 102));
 		}
@@ -97,18 +98,13 @@ static void	st_draw_player(t_data *data)
 	st_draw_fov(data);
 }
 
-#define VIEW_DISTANCE 8
-
 static double	st_convert(int current, int max)
 {
 	double adjust;
 	double factor;
 
 	adjust = (double)current - (double)(max / 2);
-	//printf("Adjusted to %ito %.6f ", current, adjust);
 	factor = adjust / (double)max;
-	//printf("to factor: %.6f\n", factor);
-	//printf("Con: %.6f ", factor * VIEW_DISTANCE);
 	return (factor * VIEW_DISTANCE);
 }
 
@@ -117,15 +113,15 @@ static int st_col(t_data *data, double posx, double posy)
 	int x;
 	int y;
 
-	x = (int)posx;
-	y = (int)posy;
+	x = floor(posx);
+	y = floor(posy);
 	if (x < 0 || y < 0 || x > data->minfo->width - 1 || y > data->minfo->height - 1)
-		return (to_rgb(0, 0, 0));
+		return (0);
 	if (data->minfo->grid[y][x] == '1')
-		return(to_rgb(0, 0, 255));
+		return(to_rgb(171, 144, 101));
 	if (data->minfo->grid[y][x] == ' ')
-		return(to_rgb(0, 255, 0));
-	return(to_rgb(255, 255, 255));
+		return(0);
+	return(to_rgb(221, 194, 151));
 }
 
 // 14	-1
@@ -138,6 +134,7 @@ static void st_draw_blocks(t_data *data)
 	int y;
 	double posx;
 	double	posy;
+	int	color;
 
 	y = -1;
 	while (++y < MMAP_SIZE)
@@ -147,9 +144,9 @@ static void st_draw_blocks(t_data *data)
 		{
 			posx = data->pos_x + st_convert(x, MMAP_SIZE);
 			posy = data->pos_y + st_convert(y, MMAP_SIZE);
-			//if (y < MMAP_SIZE / 2)
-			//	printf("x: %i, y: %i at %f %f = %i %i\n", x, y, posx, posy, (int)posx, (int)posy);
-			my_pixel_put(data->image, x, y, st_col(data, posx, posy));	
+			color = st_col(data, posx, posy);
+			if (color != 0)
+				my_pixel_put(data->image, x, y, color);	
 		}
 	}
 }
