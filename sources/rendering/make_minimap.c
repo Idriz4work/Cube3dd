@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:42:58 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/22 17:07:58 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/22 21:22:39 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,21 +97,59 @@ static void	st_draw_player(t_data *data)
 	st_draw_fov(data);
 }
 
-static int	st_convert(int current, int max)
+#define VIEW_DISTANCE 8
+
+static double	st_convert(int current, int max)
+{
+	double adjust;
+	double factor;
+
+	adjust = (double)current - (double)(max / 2);
+	//printf("Adjusted to %ito %.6f ", current, adjust);
+	factor = adjust / (double)max;
+	//printf("to factor: %.6f\n", factor);
+	//printf("Con: %.6f ", factor * VIEW_DISTANCE);
+	return (factor * VIEW_DISTANCE);
+}
+
+static int st_col(t_data *data, double posx, double posy)
+{
+	int x;
+	int y;
+
+	x = (int)posx;
+	y = (int)posy;
+	if (x < 0 || y < 0 || x > data->minfo->width - 1 || y > data->minfo->height - 1)
+		return (to_rgb(0, 0, 0));
+	if (data->minfo->grid[y][x] == '1')
+		return(to_rgb(0, 0, 255));
+	if (data->minfo->grid[y][x] == ' ')
+		return(to_rgb(0, 255, 0));
+	return(to_rgb(255, 255, 255));
+}
+
+// 14	-1
+// 32	0
+// 70	1
 
 static void st_draw_blocks(t_data *data)
 {
 	int	x;
 	int y;
+	double posx;
+	double	posy;
 
 	y = -1;
-	while (++y < MMAP_SCALE)
+	while (++y < MMAP_SIZE)
 	{
 		x = -1;
-		while (++x < MMAP_SCALE)
+		while (++x < MMAP_SIZE)
 		{
-			turn 0-MMAP_SCALE
-			to -1 - +1;
+			posx = data->pos_x + st_convert(x, MMAP_SIZE);
+			posy = data->pos_y + st_convert(y, MMAP_SIZE);
+			//if (y < MMAP_SIZE / 2)
+			//	printf("x: %i, y: %i at %f %f = %i %i\n", x, y, posx, posy, (int)posx, (int)posy);
+			my_pixel_put(data->image, x, y, st_col(data, posx, posy));	
 		}
 	}
 }
