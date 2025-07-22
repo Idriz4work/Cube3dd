@@ -90,6 +90,11 @@
 # define FOV 90
 # define RENDER_DISTANCE 100
 
+// Minimap
+# define MMAP_SIZE 150
+# define MMAP_PLAYER_SIZE 5
+# define MMAP_VIEW_DISTANCE 10
+
 # define THRESHOLD 0.00001
 
 // Actions
@@ -114,6 +119,7 @@ int		get_wall_side(t_ray *ray);
 
 // Rendering functions
 void	make_background(t_data *data);
+void	minimap_background(t_data *data);
 void	make_minimap(t_data *data);
 void	render_ray(t_data *data, t_ray *ray, int x);
 void	render_wall(t_data *data, t_ray *ray, int x);

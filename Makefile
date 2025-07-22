@@ -46,6 +46,7 @@ step_ray)
 RENDER_SRC = $(addprefix rendering/, \
 make_background \
 make_minimap \
+minimap_background \
 render_ray \
 render_wall)
 UTILS_SRC = $(addprefix utils/, \
