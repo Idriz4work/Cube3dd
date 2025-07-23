@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CXX = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -L./includes/minilibx-linux -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 INCLUDES = -I /usr/include -I ./includes/minilibx-linux 
 
