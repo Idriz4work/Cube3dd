@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CXX = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MLX_FLAGS = -L./includes/minilibx-linux -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 INCLUDES = -I /usr/include -I ./includes/minilibx-linux 
 
@@ -79,12 +79,12 @@ bonus: $(BONUS_NAME)
 # Compile normal program
 $(NAME): $(LIBFT_LIB) $(NORM_OBJS)
 	$(CXX) $(CFLAGS) -DBONUS=0 $(NORM_OBJS) \
-	$(MLX_FLAGS) -o $@
+	$(MLX_FLAGS) $(LIBFT_LIB) -o $@
 
 # Compile bonus program
 $(BONUS_NAME): $(LIBFT_LIB) $(BONUS_OBJS)
 	$(CXX) $(CFLAGS) -DBONUS=1 $(BONUS_OBJS) \
-	$(MLX_FLAGS) -o $@
+	$(MLX_FLAGS) $(LIBFT_LIB) -o $@
 
 # Compile objects in normal mode
 $(OBJ_DIR)$(NORMAL_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR) $(MLX_DIR)

@@ -147,4 +147,11 @@ void	mmap_bonus(t_data *data);
 // Used LIBFT functions: 
 // ft_isdigit, ft_strlen, ft_strncmp, ft_strtrim, ft_strcmp, ft_strdup
 
+/**
+ * Used external functions:
+ * math functions: floor, fmod, fabs, sqrt, pow, sin, cos, exit
+ * mlx functions
+ * printf, open, close, malloc, free
+ */
+
 #endif
