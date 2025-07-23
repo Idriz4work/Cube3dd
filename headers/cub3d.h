@@ -83,19 +83,17 @@
 # define EAST_TEX 2
 # define WEST_TEX 3
 
-// Colors
-# define RED_CROSS 0xFF0000
-
 // Rendering
 # define FOV 90
 # define RENDER_DISTANCE 100
 # define DARKNESS_INTENSITY 0.3
 
-// Minimap
+// Minimap Dimensions
 # define MMAP_SIZE 150
 # define MMAP_PLAYER_SIZE 5
 # define MMAP_VIEW_DISTANCE 10
 # define MMAP_FRAME_THICK 10
+// Minimap Colors
 # define MMAP_C_CORNER 11243621
 # define MMAP_C_HIGHLIGHT 14403753
 # define MMAP_C_PLAYER 8739899
@@ -117,10 +115,6 @@ int		collision_check(t_data *data, t_ray *ray);
 int		get_wall_side(t_ray *ray);
 
 // Rendering functions
-void	make_background(t_data *data);
-void	mmap_tiles_bonus(t_data *data);
-void	mmap_frame_bonus(t_data *data);
-void	mmap_bonus(t_data *data);
 void	render_ray(t_data *data, t_ray *ray, int x);
 void	render_wall(t_data *data, t_ray *ray, int x);
 
@@ -146,5 +140,18 @@ int		game_loop(t_data *data);
 int		end_game(t_data *data);
 
 // Bonus functions
+void	mmap_tiles_bonus(t_data *data);
+void	mmap_frame_bonus(t_data *data);
+void	mmap_bonus(t_data *data);
+
+// Used LIBFT functions: 
+// ft_isdigit, ft_strlen, ft_strncmp, ft_strtrim, ft_strcmp, ft_strdup
+
+/**
+ * Used external functions:
+ * math functions: floor, fmod, fabs, sqrt, pow, sin, cos, exit
+ * mlx functions
+ * printf, open, close, malloc, free
+ */
 
 #endif

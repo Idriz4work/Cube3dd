@@ -1,6 +1,6 @@
 NAME = cub3d
 
-CXX = gcc
+CXX = cc
 CFLAGS = -Wall -Wextra -Werror -g
 MLX_FLAGS = -L./includes/minilibx-linux -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 INCLUDES = -I /usr/include -I ./includes/minilibx-linux 
@@ -41,10 +41,9 @@ RAYCASTING_SRC = $(addprefix raycasting/, \
 cast_ray \
 colission \
 get_wall_side \
-render_image \
 step_ray)
 RENDER_SRC = $(addprefix rendering/, \
-make_background \
+render_image \
 render_ray \
 render_wall)
 UTILS_SRC = $(addprefix utils/, \

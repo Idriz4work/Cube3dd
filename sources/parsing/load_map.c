@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 16:32:27 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/02 15:52:55 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/23 17:35:00 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,3 @@ int	load_map(char *filename, t_map *map)
 	}
 	return (0);
 }
-
-// Notes:	Only the part of the map that is accesible by the player
-//			is checked for being enclosed
-//			So its possible to have parts of the map open

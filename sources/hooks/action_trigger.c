@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:10:35 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/07 15:02:45 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/23 17:48:30 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	action_trigger(t_data *data)
 		turn(data, -ROT_SPEED);
 	else if (key == KEY_RIGHT)
 		turn(data, ROT_SPEED);
-	else
-		printf("Key: %i\n", key);
 	data->action = 0;
 	return ;
 }
