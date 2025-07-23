@@ -1,7 +1,7 @@
 NAME = cub3d
 
-CXX = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CXX = cc
+CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -L./includes/minilibx-linux -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 INCLUDES = -I /usr/include -I ./includes/minilibx-linux 
 
@@ -41,10 +41,9 @@ RAYCASTING_SRC = $(addprefix raycasting/, \
 cast_ray \
 colission \
 get_wall_side \
-render_image \
 step_ray)
 RENDER_SRC = $(addprefix rendering/, \
-make_background \
+render_image \
 render_ray \
 render_wall)
 UTILS_SRC = $(addprefix utils/, \
@@ -80,12 +79,12 @@ bonus: $(BONUS_NAME)
 # Compile normal program
 $(NAME): $(LIBFT_LIB) $(NORM_OBJS)
 	$(CXX) $(CFLAGS) -DBONUS=0 $(NORM_OBJS) \
-	$(MLX_FLAGS) $(LIBFT_LIB) -o $@
+	$(MLX_FLAGS) -o $@
 
 # Compile bonus program
 $(BONUS_NAME): $(LIBFT_LIB) $(BONUS_OBJS)
 	$(CXX) $(CFLAGS) -DBONUS=1 $(BONUS_OBJS) \
-	$(MLX_FLAGS) $(LIBFT_LIB) -o $@
+	$(MLX_FLAGS) -o $@
 
 # Compile objects in normal mode
 $(OBJ_DIR)$(NORMAL_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR) $(MLX_DIR)

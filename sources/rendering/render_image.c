@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_background.c                                  :+:      :+:    :+:   */
+/*   render_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 12:26:15 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/23 15:01:41 by sikunne          ###   ########.fr       */
+/*   Created: 2025/07/07 12:27:58 by sikunne           #+#    #+#             */
+/*   Updated: 2025/07/23 16:48:09 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	st_draw_background(t_data *data, t_img *img)
 // The old data->image object gets destroyed and freed, before reasignement
 // This means there will be one active image,
 // that should be destroyed and freed before program termination
-void	make_background(t_data *data)
+static void	st_prep_image(t_data *data)
 {
 	t_img	*img;
 
@@ -61,4 +61,24 @@ void	make_background(t_data *data)
 		free(data->image);
 	}
 	data->image = img;
+}
+
+/**
+ * Renders the current visuals on the screen
+ * @param data: Data information about the game
+*/
+void	render_image(t_data *data)
+{
+	int		i;
+	t_ray	ray;
+
+	i = -1;
+	st_prep_image(data);
+	while (++i < WINDOW_WIDTH)
+	{
+		cast_ray(data, &ray, i);
+		render_ray(data, &ray, i);
+	}
+	if (BONUS)
+		mmap_bonus(data);
 }
