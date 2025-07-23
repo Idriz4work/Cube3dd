@@ -56,7 +56,7 @@ static void	st_draw_highlights(t_data *data)
 /**
  * Draw the frame for the minimap
  */
-void	minimap_frame(t_data *data)
+void	mmap_frame_bonus(t_data *data)
 {
 	int	x;
 	int	y;

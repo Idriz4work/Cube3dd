@@ -58,7 +58,7 @@ y > data->minfo->height - 1)
  * Draws the tiles around the player
  * @param data: Data Structure
  */
-void	minimap_background(t_data *data)
+void	mmap_tiles_bonus(t_data *data)
 {
 	int		x;
 	int		y;
