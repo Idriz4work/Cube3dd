@@ -45,7 +45,6 @@ render_image \
 step_ray)
 RENDER_SRC = $(addprefix rendering/, \
 make_background \
-make_minimap \
 render_ray \
 render_wall)
 UTILS_SRC = $(addprefix utils/, \
@@ -66,11 +65,11 @@ setup_mlx \
 to_rgb \
 wall_check)
 SRC = $(addsuffix .c, main $(HOOK_SRC) $(MOVEMENT_SRC) $(PARSING_SRC) $(RAYCASTING_SRC) $(RENDER_SRC) $(UTILS_SRC))
-# BONUS_SRC = category/name_bonus.c
+BONUS_SRC = ./rendering/mmap_bonus.c ./rendering/mmap_frame_bonus.c ./rendering/mmap_tiles_bonus.c
 
 NORM_OBJS = $(addprefix $(OBJ_DIR)$(NORMAL_DIR), $(SRC:%.c=%.o))
 BONUS_OBJS = $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(SRC:%.c=%.o))
-# BONUS_OBJS += $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(BONUS_SRC:%.c=%.o))
+BONUS_OBJS += $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(BONUS_SRC:%.c=%.o))
 
 #######################################################################################
 
@@ -129,7 +128,7 @@ run: $(BONUS_NAME)
 	./$(BONUS_NAME) "maps/test.cub"
 
 # Quick run program with valgrind
-val: $(NAME)
+val: $(BONUS_NAME)
 	valgrind --leak-check=full ./$(BONUS_NAME) "maps/test.cub"
 
 # Performs norm check, only showing fails

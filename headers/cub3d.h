@@ -41,9 +41,9 @@
 # endif
 
 // Window data
-# define WINDOW_WIDTH 1024
+# define WINDOW_WIDTH 1400
 # define PLANE_LENGTH 4
-# define WINDOW_HEIGHT 768
+# define WINDOW_HEIGHT 700
 # define TEXTURE_SIZE 64
 # define WINDOW_TITLE "Cub3d by Lilly and Idris"
 
@@ -90,14 +90,17 @@
 # define FOV 90
 # define RENDER_DISTANCE 100
 
+// Minimap
+# define MMAP_SIZE 150
+# define MMAP_PLAYER_SIZE 5
+# define MMAP_VIEW_DISTANCE 10
+# define MMAP_FRAME_THICK 10
+# define MMAP_C_CORNER 11243621
+# define MMAP_C_HIGHLIGHT 14403753
+# define MMAP_C_PLAYER 8739899
+# define MMAP_C_FOV 11312786
+
 # define THRESHOLD 0.00001
-
-// Actions
-
-// Error messages
-
-// Parsing functions
-// -> in parsing.h
 
 // Movement functions
 void	move(t_data *data, int direction);
@@ -114,7 +117,9 @@ int		get_wall_side(t_ray *ray);
 
 // Rendering functions
 void	make_background(t_data *data);
-void	make_minimap(t_data *data);
+void	mmap_tiles_bonus(t_data *data);
+void	mmap_frame_bonus(t_data *data);
+void	mmap_bonus(t_data *data);
 void	render_ray(t_data *data, t_ray *ray, int x);
 void	render_wall(t_data *data, t_ray *ray, int x);
 

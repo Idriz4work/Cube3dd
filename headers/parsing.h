@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:30:32 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/02 17:25:41 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:25:39 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 # define ERR_MAPGRID_FLOOD 14
 
 // Change this between 1 (active) and 0 to activate extra print output
-# define MAPFILE_EXT_OUT 1
+# define MAPFILE_EXT_OUT 0
 
 int			mapfile_open(char *filename, int *status);
 int			load_map(char *filename, t_map *map);
