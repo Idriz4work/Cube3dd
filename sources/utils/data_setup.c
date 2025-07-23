@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:03:28 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/21 17:03:06 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/23 19:48:54 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,23 @@ static void	st_setup_player(t_data *data)
 	data->minfo->grid[j][i] = '0';
 }
 
+/**
+ * Sets up the data for the FPS counter
+ */
+static void	st_setup_fps(t_data *data)
+{
+	struct timeval	stamp;
+
+	gettimeofday(&stamp, NULL);
+	data->frame = 0;
+	data->fps = 0;
+	data->oldtime = stamp.tv_sec;
+}
+
 // Sets up all necessary objects, hooks and parts for the game
 void	data_setup(t_data *data)
 {
+	st_setup_fps(data);
 	setup_mlx(data);
 	st_setup_player(data);
 	move_camera(data);
