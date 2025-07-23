@@ -89,6 +89,7 @@
 // Rendering
 # define FOV 90
 # define RENDER_DISTANCE 100
+# define DARKNESS_INTENSITY 0.3
 
 // Minimap
 # define MMAP_SIZE 150
