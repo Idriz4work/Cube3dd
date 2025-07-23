@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:42:58 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/23 04:27:19 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/23 04:40:54 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	st_oob_check(t_data *data, double x, double y, double steps)
 {
-	double width;
-	double height;
+	double	width;
+	double	height;
 
 	width = x + steps * (data->dir_x + data->plane_x);
 	height = y + steps * (data->dir_y + data->plane_y);

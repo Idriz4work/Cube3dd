@@ -18,7 +18,7 @@
  * @param y: Y Height of the line
  * @param color: The color for the line
 */
-static void st_hor_line(t_data *data, int y, int color)
+static void	st_hor_line(t_data *data, int y, int color)
 {
 	int	x;
 
@@ -33,7 +33,7 @@ static void st_hor_line(t_data *data, int y, int color)
  * @param x: X Position of the line
  * @param color: The color for the line
 */
-static void st_vert_line(t_data *data, int x, int color)
+static void	st_vert_line(t_data *data, int x, int color)
 {
 	int	y;
 
@@ -45,7 +45,7 @@ static void st_vert_line(t_data *data, int x, int color)
 /**
  * Draw some highlights on the frame
  */
-static void st_draw_highlights(t_data *data)
+static void	st_draw_highlights(t_data *data)
 {
 	st_hor_line(data, (MMAP_FRAME_THICK / 2), MMAP_C_HIGHLIGHT);
 	st_hor_line(data, MMAP_SIZE - 1 -(MMAP_FRAME_THICK / 2), MMAP_C_HIGHLIGHT);
@@ -59,7 +59,7 @@ static void st_draw_highlights(t_data *data)
 void	minimap_frame(t_data *data)
 {
 	int	x;
-	int y;
+	int	y;
 
 	y = -1;
 	while (++y < MMAP_FRAME_THICK)

@@ -22,8 +22,8 @@
 */
 static double	st_convert(int current, int max)
 {
-	double adjust;
-	double factor;
+	double	adjust;
+	double	factor;
 
 	adjust = (double)current - (double)(max / 2);
 	factor = adjust / (double)max;
@@ -37,33 +37,34 @@ static double	st_convert(int current, int max)
  * @param posy: Y Position as double
  * @returns: Color Value for the specific tile
  */
-static int st_color_get(t_data *data, double posx, double posy)
+static int	st_color_get(t_data *data, double posx, double posy)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = floor(posx);
 	y = floor(posy);
-	if (x < 0 || y < 0 || x > data->minfo->width - 1 || y > data->minfo->height - 1)
+	if (x < 0 || y < 0 || x > data->minfo->width - 1 || \
+y > data->minfo->height - 1)
 		return (0);
 	if (data->minfo->grid[y][x] == '1')
-		return(to_rgb(171, 144, 101));
+		return (MMAP_C_CORNER);
 	if (data->minfo->grid[y][x] == ' ')
-		return(0);
-	return(to_rgb(221, 194, 151));
+		return (0);
+	return (to_rgb(221, 194, 151));
 }
 
 /**
  * Draws the tiles around the player
  * @param data: Data Structure
  */
-void minimap_background(t_data *data)
+void	minimap_background(t_data *data)
 {
-	int	x;
-	int y;
-	double posx;
+	int		x;
+	int		y;
+	double	posx;
 	double	posy;
-	int	color;
+	int		color;
 
 	y = -1;
 	while (++y < MMAP_SIZE)
@@ -75,7 +76,7 @@ void minimap_background(t_data *data)
 			posy = data->pos_y + st_convert(y, MMAP_SIZE);
 			color = st_color_get(data, posx, posy);
 			if (color != 0)
-				my_pixel_put(data->image, x, y, color);	
+				my_pixel_put(data->image, x, y, color);
 		}
 	}
 }
