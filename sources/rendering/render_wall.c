@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 19:06:37 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/16 17:29:00 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/23 16:15:41 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ static int	st_apply_dark(int color, double wall_dist)
 	int		b;
 	double	darkness;
 
-	if (wall_dist <= 1.0)
-		return (color);
-	r = (color >> 16) & 0xFF;
-	g = (color >> 8) & 0xFF;
-	b = color & 0xFF;
-	darkness = 1.0 / (1.0 + wall_dist * 0.1);
+	r = (color >> 16) & 255;
+	g = (color >> 8) & 255;
+	b = color & 255;
+	darkness = 1.0 / (1.0 + wall_dist * DARKNESS_INTENSITY);
 	r = (int)(r * darkness);
 	g = (int)(g * darkness);
 	b = (int)(b * darkness);
@@ -79,7 +77,8 @@ void	render_wall(t_data *data, t_ray *ray, int x)
 		if (tex_y < 0)
 			tex_y = 0;
 		color = st_get_texture_pixel(data, ray->wall_x, tex_y, ray->side);
-		color = st_apply_dark(color, ray->wall_dist);
+		if (BONUS)
+			color = st_apply_dark(color, ray->wall_dist);
 		my_pixel_put(data->image, x, y, color);
 		tex_pos += step;
 	}

@@ -11,8 +11,8 @@ NO       ./textures/back.xpm
 SO       ./textures/back.xpm
 EA      ./textures/back.xpm
 WE       ./textures/back.xpm
-F 180, 152, 84
-C 200, 188, 152
+F 150, 144, 75
+C 140, 134, 65
 
 1       1
   

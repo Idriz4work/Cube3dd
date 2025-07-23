@@ -137,7 +137,7 @@ cub3d/
 - [x] Set up basic image buffer system
 - [x] Implement window event handling (ESC to close)
 - [x] Basic pixel manipulation functions
-- [ ] Test rendering simple shapes
+- [x] Test rendering simple shapes
 
 ### Phase 3: Player System
 - [x] Initialize player position and orientation
@@ -163,9 +163,9 @@ cub3d/
 - [x] Initialize side distances for ray traversal
 
 #### Step 4: Digital Differential Analysis (DDA)
-- [ ] Implement DDA algorithm
-- [ ] Wall detection logic
-- [ ] Track which side of wall was hit
+- [x] Implement DDA algorithm
+- [x] Wall detection logic
+- [x] Track which side of wall was hit
 
 #### Step 5: Wall Height and Distance Calculation
 - [x] Calculate wall distance from player
@@ -177,11 +177,11 @@ cub3d/
 - [x] Implement texture coordinate calculation
 - [x] Map wall intersection to texture coordinates
 - [x] Handle different wall orientations (N, S, E, W)
-- [ ] Add shading for visual depth
+- [x] Add shading for visual depth
 
 ### Phase 6: Rendering Optimization
-- [ ] Implement pixel map system
-- [ ] Optimize image buffer manipulation
+- [x] Implement pixel map system
+- [x] Optimize image buffer manipulation
 - [x] Use MLX image functions instead of individual pixel drawing
 - [x] Implement ceiling and floor coloring
 - [x] Prevent screen flickering
