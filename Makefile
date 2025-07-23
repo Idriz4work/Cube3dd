@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CXX = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -L./includes/minilibx-linux -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 INCLUDES = -I /usr/include -I ./includes/minilibx-linux 
 
@@ -64,7 +64,10 @@ setup_mlx \
 to_rgb \
 wall_check)
 SRC = $(addsuffix .c, main $(HOOK_SRC) $(MOVEMENT_SRC) $(PARSING_SRC) $(RAYCASTING_SRC) $(RENDER_SRC) $(UTILS_SRC))
-BONUS_SRC = ./rendering/mmap_bonus.c ./rendering/mmap_frame_bonus.c ./rendering/mmap_tiles_bonus.c
+BONUS_SRC = \
+./rendering/mmap_bonus.c ./rendering/mmap_frame_bonus.c ./rendering/mmap_tiles_bonus.c \
+./rendering/fps_draw_bonus.c ./rendering/fps_first_bonus.c ./rendering/fps_second_bonus.c \
+./rendering/fps_hor_line_bonus.c ./rendering/fps_ver_line_bonus.c 
 
 NORM_OBJS = $(addprefix $(OBJ_DIR)$(NORMAL_DIR), $(SRC:%.c=%.o))
 BONUS_OBJS = $(addprefix $(OBJ_DIR)$(BONUS_DIR), $(SRC:%.c=%.o))
@@ -124,11 +127,11 @@ $(MLX_DIR):
 
 # Quick run program on example map
 run: $(BONUS_NAME)
-	./$(BONUS_NAME) "maps/test.cub"
+	./$(BONUS_NAME) "maps/tech.cub"
 
 # Quick run program with valgrind
 val: $(BONUS_NAME)
-	valgrind --leak-check=full ./$(BONUS_NAME) "maps/test.cub"
+	valgrind --leak-check=full ./$(BONUS_NAME) "maps/tech.cub"
 
 # Performs norm check, only showing fails
 norm:

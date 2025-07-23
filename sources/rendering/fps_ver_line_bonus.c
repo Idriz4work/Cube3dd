@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_loop.c                                        :+:      :+:    :+:   */
+/*   fps_ver_line_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/07 14:23:01 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/23 19:48:48 by sikunne          ###   ########.fr       */
+/*   Created: 2025/07/23 19:00:05 by sikunne           #+#    #+#             */
+/*   Updated: 2025/07/23 19:44:57 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
-static void	st_fps(t_data *data)
+// Draws <length> pixels downward, starting from <x> <y>
+void	fps_ver_bonus(t_data *data, int x, int y, int length)
 {
-	struct timeval	timestamp;
+	int	i;
 
-	data->frame++;
-	gettimeofday(&timestamp, NULL);
-	if (timestamp.tv_sec != data->oldtime)
-	{
-		data->fps = data->frame;
-		data->frame = 0;
-		data->oldtime = timestamp.tv_sec;
-	}
-	if (BONUS)
-		fps_draw_bonus(data);
-}
-
-/*
-Central game loop
-*/
-int	game_loop(t_data *data)
-{
-	action_trigger(data);
-	render_image(data);
-	st_fps(data);
-	return (0);
+	i = -1;
+	while (++i < length)
+		my_pixel_put(data->image, x, y + i, FPS_COLOR);
 }

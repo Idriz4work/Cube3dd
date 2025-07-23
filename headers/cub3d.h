@@ -30,6 +30,7 @@
 # include "data_struct.h"
 # include "parsing.h"
 # include "ray_struct.h"
+# include "fps_bonus.h"
 
 // Because using M_PI gets marked wrong in VScode, but works in compiler
 # ifndef M_PI
