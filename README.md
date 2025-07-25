@@ -11,8 +11,6 @@ Cub3D is an advanced graphics project that builds upon concepts from so_long, im
 - Flood fill map validation
 - Event handling and graphics optimization
 
-**Expected Performance**: ~750 fps on modern hardware (12th Gen Intel i7, 16GB RAM, Ubuntu 22.04)
-
 ## 🎯 Learning Objectives
 
 - Understand and implement raycasting algorithms
@@ -108,15 +106,19 @@ You can open the maps in the "maps" folder with a text editor for some examples<
 
 ```
 cub3d/
+├── headers/
+├── includes/
+│   ├── Libft/
+│   ├── minilibx-linux/
+├── maps/
 ├── sources/
-│   ├── main.c
 │   ├── hooks/
 │   ├── movement/
 │   ├── parsing/
 │   ├── raycasting/
 │   ├── rendering/
-│   └── utils/
-├── maps/
+│   ├── utils/
+│   └── main.c
 ├── textures/
 ├── Makefile
 └── README.md
@@ -186,7 +188,7 @@ cub3d/
 - [x] Implement ceiling and floor coloring
 - [x] Prevent screen flickering
 
-### Phase 7: Polish and Optimization
+### Phase 7: Polish and Optimization (optional)
 - [ ] Fine-tune performance
 - [ ] Add visual enhancements
 - [ ] Implement smooth animations
@@ -195,7 +197,8 @@ cub3d/
 
 ## 🔧 Key Data Structures
 
-### Core Structures
+### Core Structure<br/>
+Used in almost all functions, central memory storage for the game<br/>
 ```c
 typedef struct s_data
 {
@@ -211,10 +214,14 @@ typedef struct s_data
 	double	dir_x;
 	double	dir_y;
 	t_img	*image;
-	int		**pixels_map;
 	t_map	*minfo;
+	int		frame;
+	int		fps;
+	time_t	oldtime;
 }	t_data;
-
+```
+MLX Image Data is stored in this, for easier acces to attributes<br/>
+```c
 typedef struct s_img
 {
     void    *img;
@@ -223,7 +230,9 @@ typedef struct s_img
     int     line_length;
     int     endian;
 } t_img;
-
+```
+Stores information from parsing into memory<br/>
+```c
 typedef struct s_map
 {
 	char	**grid;
@@ -243,31 +252,6 @@ typedef struct s_map
 - **Arrow Keys**: Rotate view left/right, Move forward/backward
 - **ESC**: Exit game
 
-## 🧮 Mathematical Concepts
-
-### Essential Formulas
-- **Ray Direction**: `ray_dir = player_dir + cam_dir + camera_plane * camera_x`
-- **Delta Distance**: `delta_dist = |1 / ray_dir|`
-- **Wall Distance**: `wall_dist = (map_pos - player_pos + adjustment) / ray_dir`
-- **Texture Coordinate**: `tex_x = wall_x * TEXTURE_SIZE`
-
-## 🚀 Performance Tips
-
-1. **Use Image Buffers**: Manipulate entire image buffer instead of individual pixels
-2. **Optimize Texture Access**: Use efficient array indexing for texture data
-3. **Minimize Function Calls**: Reduce MLX function calls in main loop
-4. **Efficient Memory Management**: Properly manage texture buffers
-5. **Variable Frame Rate**: Implement frame rate independent movement
-
-## 🐛 Common Pitfalls to Avoid
-
-- **Mathematical Understanding**: Don't skip learning the math behind raycasting
-- **Continuous Movement**: Implement proper key event handling for smooth movement
-- **Variable Speed**: Account for different computer performances
-- **Memory Leaks**: Properly free all allocated resources
-- **Texture Errors**: Handle texture loading failures gracefully
-- **Map Validation**: Thoroughly validate map file format
-
 ## 📚 Recommended Resources
 
 - Raycasting tutorials and mathematical explanations
@@ -275,42 +259,15 @@ typedef struct s_map
 - Computer graphics fundamentals
 - Game development optimization techniques
 
-## 🧪 Testing
-
-### Test Cases
-- [ ] Various map configurations
-- [ ] Invalid map handling
-- [ ] Performance benchmarking
-- [ ] Memory leak testing with Valgrind
-- [ ] Edge case scenarios (corners, small spaces)
-
-### Debugging Tips
-- Use visual debugging (draw rays, mark positions)
-- Test with simple maps first
-- Verify mathematical calculations step by step
-- Check texture loading and indexing
-
-## 🤝 Team Collaboration
-
-### Division of Work Suggestions
-- **Person 1**: Parsing, validation, and setup
-- **Person 2**: Raycasting algorithm and rendering
-- **Both**: Testing, optimization, and documentation
-
-### Communication
-- Regular code reviews
-- Shared understanding of mathematical concepts
-- Coordinated testing and debugging sessions
-
 ## 📝 Submission Checklist
 
-- [ ] Code compiles without warnings
-- [ ] All required features implemented
-- [ ] No memory leaks (Valgrind clean)
-- [ ] Proper error handling
-- [ ] Code follows 42 School norms
-- [ ] Performance meets expectations
-- [ ] Documentation complete
+- [x] Code compiles without warnings
+- [x] All required features implemented
+- [x] No memory leaks (Valgrind clean)
+- [x] Proper error handling
+- [x] Code follows 42 School norms
+- [x] Performance meets expectations
+- [x] Documentation complete
 
 ## 🏆 Bonus Features Ideas
 
@@ -322,5 +279,3 @@ typedef struct s_map
 - [ ] Mouse look control
 
 ---
-
-**Good luck with your Cub3D adventure! Remember: understanding the mathematics is crucial for successful implementation and debugging.**

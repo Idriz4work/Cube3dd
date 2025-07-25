@@ -36,14 +36,11 @@ typedef struct s_data
 	double	dir_y;
 	// Image buffer for rendering
 	t_img	*image;
-	int		**pixels_map;
 	t_map	*minfo;
 	// FPS data
 	int		frame;
 	int		fps;
 	time_t	oldtime;
 }	t_data;
-
-// Unused attributes so far: plane_x, plane_y, pixels_map
 
 #endif
