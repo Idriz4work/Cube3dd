@@ -11,8 +11,6 @@ Cub3D is an advanced graphics project that builds upon concepts from so_long, im
 - Flood fill map validation
 - Event handling and graphics optimization
 
-**Expected Performance**: ~750 fps on modern hardware (12th Gen Intel i7, 16GB RAM, Ubuntu 22.04)
-
 ## 🎯 Learning Objectives
 
 - Understand and implement raycasting algorithms
@@ -23,7 +21,9 @@ Cub3D is an advanced graphics project that builds upon concepts from so_long, im
 
 ## 🛠️ Setup and Installation
 
-### Prerequisites
+This game is for Linux, and Subsystems of it (like WSL for Windos)
+
+### 🔔 Prerequisites
 Theese can be installed with the command below
 - MinilibX library
 - GCC compiler
@@ -31,14 +31,14 @@ Theese can be installed with the command below
 - Make
 - Math library (-lm)
 
-### Installing Prerequisites
+### 👨🏼‍💻 Installing Prerequisites
 If you are missing some prerequisites, run this command, to install all the neccesary packages:
 (Admin/Sudo priviliges required)
    ```bash
    sudo apt install build-essential gcc git make
    ```
 
-### Installation Steps
+### ⬇️ Installation Steps
 1. Clone the repository
 	```bash
    git clone https://github.com/Idriz4work/Cube3dd.git cub3d
@@ -51,7 +51,7 @@ If you are missing some prerequisites, run this command, to install all the necc
    ```bash
    make
    ```
-### Running the game
+### 🕹 Running the game
 The game requires a map file, which holds information about the map, which the game should load<br/>
 The repository comes prepared with some maps, in the "maps" folder<br/>
 Maps have to satisfy certain requirements, which the program will complain about if invalid<br/>
@@ -70,7 +70,7 @@ The map has to be in a ".cub" format
    ./cub3d MAP_PATH
    ```
 
-### Map Files
+### 🌏 Map Files
 Map Files have to hold 3 types of information<br/>
 There should only be 1 of theese per line<br/>
 1.	4x A path to a texture file per corresponding wall<br/>
@@ -104,22 +104,90 @@ The map should be the last piece of information in the file<br/>
 All Map files are text files in the ".cub" file format<br/>
 You can open the maps in the "maps" folder with a text editor for some examples<br/>
 
+## 🎮 Controls
+- **W/A/S/D**: Move forward/left/backward/right
+- **Arrow Keys**: Rotate view left/right, Move forward/backward
+- **ESC**: Exit game
+
+## 📚 Recommended Resources
+
+- Raycasting tutorials and mathematical explanations
+- MinilibX documentation
+- Computer graphics fundamentals
+- Game development optimization techniques
+
 ## 📁 Project Structure
 
 ```
 cub3d/
+├── headers/
+├── includes/
+│   ├── Libft/
+│   ├── minilibx-linux/
+├── maps/
 ├── sources/
-│   ├── main.c
 │   ├── hooks/
 │   ├── movement/
 │   ├── parsing/
 │   ├── raycasting/
 │   ├── rendering/
-│   └── utils/
-├── maps/
+│   ├── utils/
+│   └── main.c
 ├── textures/
 ├── Makefile
 └── README.md
+```
+
+## 🔧 Key Data Structures
+
+### Core Structure<br/>
+Used in almost all functions, central memory storage for the game<br/>
+```c
+typedef struct s_data
+{
+	void	*mlx;
+	void	*win;
+	t_img	*tex[NUM_TEXTURES];
+	int 	action;
+	double	pos_x;
+	double	pos_y;
+	double	rot;
+	double	plane_x;
+	double	plane_y;
+	double	dir_x;
+	double	dir_y;
+	t_img	*image;
+	t_map	*minfo;
+	int 	frame;
+	int 	fps;
+	time_t	oldtime;
+}	t_data;
+```
+MLX Image Data is stored in this, for easier acces to attributes<br/>
+```c
+typedef struct s_img
+{
+    void    *img;
+    int     *addr;
+    int     bpp;
+    int     line_length;
+    int     endian;
+} t_img;
+```
+Stores information from parsing into memory<br/>
+```c
+typedef struct s_map
+{
+	char	**grid;
+	int 	width;
+	int 	height;
+	char	*north_texture;
+	char	*south_texture;
+	char	*east_texture;
+	char	*west_texture;
+	int 	floor_color[3];
+	int 	ceiling_color[3];
+}	t_map;
 ```
 
 ## 🗺️ Implementation Roadmap
@@ -145,7 +213,6 @@ cub3d/
 - [x] Add player rotation (arrow keys or mouse)
 - [x] Implement collision detection
 - [x] Add smooth movement and rotation
-- [ ] Variable speed implementation
 
 ### Phase 4: Raycasting Algorithm Implementation
 
@@ -186,141 +253,28 @@ cub3d/
 - [x] Implement ceiling and floor coloring
 - [x] Prevent screen flickering
 
-### Phase 7: Polish and Optimization
-- [ ] Fine-tune performance
-- [ ] Add visual enhancements
-- [ ] Implement smooth animations
-- [ ] Code cleanup and documentation
-- [ ] Memory leak checking with Valgrind
-
-## 🔧 Key Data Structures
-
-### Core Structures
-```c
-typedef struct s_data
-{
-	void	*mlx;
-	void	*win;
-	t_img	*tex[NUM_TEXTURES];
-	int		action;
-	double	pos_x;
-	double	pos_y;
-	double	rot;
-	double	plane_x;
-	double	plane_y;
-	double	dir_x;
-	double	dir_y;
-	t_img	*image;
-	int		**pixels_map;
-	t_map	*minfo;
-}	t_data;
-
-typedef struct s_img
-{
-    void    *img;
-    int     *addr;
-    int     bpp;
-    int     line_length;
-    int     endian;
-} t_img;
-
-typedef struct s_map
-{
-	char	**grid;
-	int		width;
-	int		height;
-	char	*north_texture;
-	char	*south_texture;
-	char	*east_texture;
-	char	*west_texture;
-	int		floor_color[3];
-	int		ceiling_color[3];
-}	t_map;
-```
-
-## 🎮 Controls
-- **W/A/S/D**: Move forward/left/backward/right
-- **Arrow Keys**: Rotate view left/right, Move forward/backward
-- **ESC**: Exit game
-
-## 🧮 Mathematical Concepts
-
-### Essential Formulas
-- **Ray Direction**: `ray_dir = player_dir + cam_dir + camera_plane * camera_x`
-- **Delta Distance**: `delta_dist = |1 / ray_dir|`
-- **Wall Distance**: `wall_dist = (map_pos - player_pos + adjustment) / ray_dir`
-- **Texture Coordinate**: `tex_x = wall_x * TEXTURE_SIZE`
-
-## 🚀 Performance Tips
-
-1. **Use Image Buffers**: Manipulate entire image buffer instead of individual pixels
-2. **Optimize Texture Access**: Use efficient array indexing for texture data
-3. **Minimize Function Calls**: Reduce MLX function calls in main loop
-4. **Efficient Memory Management**: Properly manage texture buffers
-5. **Variable Frame Rate**: Implement frame rate independent movement
-
-## 🐛 Common Pitfalls to Avoid
-
-- **Mathematical Understanding**: Don't skip learning the math behind raycasting
-- **Continuous Movement**: Implement proper key event handling for smooth movement
-- **Variable Speed**: Account for different computer performances
-- **Memory Leaks**: Properly free all allocated resources
-- **Texture Errors**: Handle texture loading failures gracefully
-- **Map Validation**: Thoroughly validate map file format
-
-## 📚 Recommended Resources
-
-- Raycasting tutorials and mathematical explanations
-- MinilibX documentation
-- Computer graphics fundamentals
-- Game development optimization techniques
-
-## 🧪 Testing
-
-### Test Cases
-- [ ] Various map configurations
-- [ ] Invalid map handling
-- [ ] Performance benchmarking
-- [ ] Memory leak testing with Valgrind
-- [ ] Edge case scenarios (corners, small spaces)
-
-### Debugging Tips
-- Use visual debugging (draw rays, mark positions)
-- Test with simple maps first
-- Verify mathematical calculations step by step
-- Check texture loading and indexing
-
-## 🤝 Team Collaboration
-
-### Division of Work Suggestions
-- **Person 1**: Parsing, validation, and setup
-- **Person 2**: Raycasting algorithm and rendering
-- **Both**: Testing, optimization, and documentation
-
-### Communication
-- Regular code reviews
-- Shared understanding of mathematical concepts
-- Coordinated testing and debugging sessions
+### Phase 7: Polish and Optimization (optional)
+- [x] Fine-tune performance
+- [x] Add visual enhancements
+- [x] Implement smooth animations
+- [x] Code cleanup and documentation
+- [x] Memory leak checking with Valgrind
 
 ## 📝 Submission Checklist
 
-- [ ] Code compiles without warnings
-- [ ] All required features implemented
-- [ ] No memory leaks (Valgrind clean)
-- [ ] Proper error handling
-- [ ] Code follows 42 School norms
-- [ ] Performance meets expectations
-- [ ] Documentation complete
+- [x] Code compiles without warnings
+- [x] All required features implemented
+- [x] No memory leaks (Valgrind clean)
+- [x] Proper error handling
+- [x] Code follows 42 School norms
+- [x] Performance meets expectations
+- [x] Documentation complete
 
-## 🏆 Bonus Features Ideas
+## 🏆 Bonus Features
 
 - [x] Wall collision
 - [x] Minimap display
-- [ ] Sprite rendering
-- [ ] Sound effects
-- [ ] Multiple levels
-- [ ] Mouse look control
+- [x] FPS Counter
+- [x] Darkness based on distance
 
 ---
-
-**Good luck with your Cub3D adventure! Remember: understanding the mathematics is crucial for successful implementation and debugging.**
