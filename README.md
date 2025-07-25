@@ -102,6 +102,18 @@ The map should be the last piece of information in the file<br/>
 All Map files are text files in the ".cub" file format<br/>
 You can open the maps in the "maps" folder with a text editor for some examples<br/>
 
+## 🎮 Controls
+- **W/A/S/D**: Move forward/left/backward/right
+- **Arrow Keys**: Rotate view left/right, Move forward/backward
+- **ESC**: Exit game
+
+## 📚 Recommended Resources
+
+- Raycasting tutorials and mathematical explanations
+- MinilibX documentation
+- Computer graphics fundamentals
+- Game development optimization techniques
+
 ## 📁 Project Structure
 
 ```
@@ -122,6 +134,58 @@ cub3d/
 ├── textures/
 ├── Makefile
 └── README.md
+```
+
+## 🔧 Key Data Structures
+
+### Core Structure<br/>
+Used in almost all functions, central memory storage for the game<br/>
+```c
+typedef struct s_data
+{
+	void	*mlx;
+	void	*win;
+	t_img	*tex[NUM_TEXTURES];
+	int 	action;
+	double	pos_x;
+	double	pos_y;
+	double	rot;
+	double	plane_x;
+	double	plane_y;
+	double	dir_x;
+	double	dir_y;
+	t_img	*image;
+	t_map	*minfo;
+	int 	frame;
+	int 	fps;
+	time_t	oldtime;
+}	t_data;
+```
+MLX Image Data is stored in this, for easier acces to attributes<br/>
+```c
+typedef struct s_img
+{
+    void    *img;
+    int     *addr;
+    int     bpp;
+    int     line_length;
+    int     endian;
+} t_img;
+```
+Stores information from parsing into memory<br/>
+```c
+typedef struct s_map
+{
+	char	**grid;
+	int 	width;
+	int 	height;
+	char	*north_texture;
+	char	*south_texture;
+	char	*east_texture;
+	char	*west_texture;
+	int 	floor_color[3];
+	int 	ceiling_color[3];
+}	t_map;
 ```
 
 ## 🗺️ Implementation Roadmap
@@ -188,75 +252,11 @@ cub3d/
 - [x] Prevent screen flickering
 
 ### Phase 7: Polish and Optimization (optional)
-- [ ] Fine-tune performance
-- [ ] Add visual enhancements
-- [ ] Implement smooth animations
-- [ ] Code cleanup and documentation
-- [ ] Memory leak checking with Valgrind
-
-## 🔧 Key Data Structures
-
-### Core Structure<br/>
-Used in almost all functions, central memory storage for the game<br/>
-```c
-typedef struct s_data
-{
-	void	*mlx;
-	void	*win;
-	t_img	*tex[NUM_TEXTURES];
-	int 	action;
-	double	pos_x;
-	double	pos_y;
-	double	rot;
-	double	plane_x;
-	double	plane_y;
-	double	dir_x;
-	double	dir_y;
-	t_img	*image;
-	t_map	*minfo;
-	int 	frame;
-	int 	fps;
-	time_t	oldtime;
-}	t_data;
-```
-MLX Image Data is stored in this, for easier acces to attributes<br/>
-```c
-typedef struct s_img
-{
-    void    *img;
-    int     *addr;
-    int     bpp;
-    int     line_length;
-    int     endian;
-} t_img;
-```
-Stores information from parsing into memory<br/>
-```c
-typedef struct s_map
-{
-	char	**grid;
-	int 	width;
-	int 	height;
-	char	*north_texture;
-	char	*south_texture;
-	char	*east_texture;
-	char	*west_texture;
-	int 	floor_color[3];
-	int 	ceiling_color[3];
-}	t_map;
-```
-
-## 🎮 Controls
-- **W/A/S/D**: Move forward/left/backward/right
-- **Arrow Keys**: Rotate view left/right, Move forward/backward
-- **ESC**: Exit game
-
-## 📚 Recommended Resources
-
-- Raycasting tutorials and mathematical explanations
-- MinilibX documentation
-- Computer graphics fundamentals
-- Game development optimization techniques
+- [x] Fine-tune performance
+- [x] Add visual enhancements
+- [x] Implement smooth animations
+- [x] Code cleanup and documentation
+- [x] Memory leak checking with Valgrind
 
 ## 📝 Submission Checklist
 
@@ -268,14 +268,11 @@ typedef struct s_map
 - [x] Performance meets expectations
 - [x] Documentation complete
 
-## 🏆 Bonus Features Ideas
+## 🏆 Bonus Features
 
 - [x] Wall collision
 - [x] Minimap display
-- [ ] Sprite rendering
-- [ ] Sound effects
-- [ ] Multiple levels
-- [ ] Mouse look control
-(- [x] FPS Counter)
+- [x] FPS Counter
+- [x] Darkness based on distance
 
 ---
