@@ -21,7 +21,9 @@ Cub3D is an advanced graphics project that builds upon concepts from so_long, im
 
 ## 🛠️ Setup and Installation
 
-### Prerequisites
+This game is for Linux, and Subsystems of it (like WSL for Windos)
+
+### 🔔 Prerequisites
 Theese can be installed with the command below
 - MinilibX library
 - GCC compiler
@@ -29,14 +31,14 @@ Theese can be installed with the command below
 - Make
 - Math library (-lm)
 
-### Installing Prerequisites
+### 👨🏼‍💻 Installing Prerequisites
 If you are missing some prerequisites, run this command, to install all the neccesary packages:
 (Admin/Sudo priviliges required)
    ```bash
    sudo apt install build-essential gcc git make
    ```
 
-### Installation Steps
+### ⬇️ Installation Steps
 1. Clone the repository
 	```bash
    git clone https://github.com/Idriz4work/Cube3dd.git cub3d
@@ -49,7 +51,7 @@ If you are missing some prerequisites, run this command, to install all the necc
    ```bash
    make
    ```
-### Running the game
+### 🕹 Running the game
 The game requires a map file, which holds information about the map, which the game should load<br/>
 The repository comes prepared with some maps, in the "maps" folder<br/>
 Maps have to satisfy certain requirements, which the program will complain about if invalid<br/>
@@ -68,7 +70,7 @@ The map has to be in a ".cub" format
    ./cub3d MAP_PATH
    ```
 
-### Map Files
+### 🌏 Map Files
 Map Files have to hold 3 types of information<br/>
 There should only be 1 of theese per line<br/>
 1.	4x A path to a texture file per corresponding wall<br/>
