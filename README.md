@@ -147,7 +147,6 @@ cub3d/
 - [x] Add player rotation (arrow keys or mouse)
 - [x] Implement collision detection
 - [x] Add smooth movement and rotation
-- [ ] Variable speed implementation
 
 ### Phase 4: Raycasting Algorithm Implementation
 
@@ -205,7 +204,7 @@ typedef struct s_data
 	void	*mlx;
 	void	*win;
 	t_img	*tex[NUM_TEXTURES];
-	int		action;
+	int 	action;
 	double	pos_x;
 	double	pos_y;
 	double	rot;
@@ -215,8 +214,8 @@ typedef struct s_data
 	double	dir_y;
 	t_img	*image;
 	t_map	*minfo;
-	int		frame;
-	int		fps;
+	int 	frame;
+	int 	fps;
 	time_t	oldtime;
 }	t_data;
 ```
@@ -236,14 +235,14 @@ Stores information from parsing into memory<br/>
 typedef struct s_map
 {
 	char	**grid;
-	int		width;
-	int		height;
+	int 	width;
+	int 	height;
 	char	*north_texture;
 	char	*south_texture;
 	char	*east_texture;
 	char	*west_texture;
-	int		floor_color[3];
-	int		ceiling_color[3];
+	int 	floor_color[3];
+	int 	ceiling_color[3];
 }	t_map;
 ```
 
@@ -277,5 +276,6 @@ typedef struct s_map
 - [ ] Sound effects
 - [ ] Multiple levels
 - [ ] Mouse look control
+(- [x] FPS Counter)
 
 ---
