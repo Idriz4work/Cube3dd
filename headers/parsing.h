@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:30:32 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/23 14:25:39 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/28 19:05:42 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@
 # define ERR_MAPFILE_UNFIN 9
 # define ERR_MAPFILE_INVCHAR 10
 # define ERR_MAPFILE_ALOCFAIL 11
-# define ERR_MAPGRID_PLOW 12
-# define ERR_MAPGRID_PHIGH 13
-# define ERR_MAPGRID_FLOOD 14
+# define ERR_MAPFILE_NEWLINE 12
+# define ERR_MAPGRID_PLOW 13
+# define ERR_MAPGRID_PHIGH 14
+# define ERR_MAPGRID_FLOOD 15
 
 // Change this between 1 (active) and 0 to activate extra print output
 # define MAPFILE_EXT_OUT 0
