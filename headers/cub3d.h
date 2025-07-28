@@ -129,6 +129,7 @@ void	my_pixel_put(t_img *img, int x, int y, int color);
 void	data_setup(t_data *data);
 double	deg_to_rad(double degree);
 void	angle_vector(double *x_dir, double *y_dir, double rot, double distance);
+void	normalize_distance(t_data *data, t_ray *ray);
 int		oob_check(double x_max, double y_max, double x, double y);
 int		wall_check(t_data *data, int x, int y);
 void	setup_mlx(t_data *data);

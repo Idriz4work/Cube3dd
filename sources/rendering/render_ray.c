@@ -88,6 +88,7 @@ data->minfo->floor_color[2]);
  */
 void	render_ray(t_data *data, t_ray *ray, int x)
 {
+	normalize_distance(data, ray);
 	st_calc_dimensions(ray);
 	st_calc_texture_x(ray);
 	st_render_ceiling(data, x, ray->draw_start);

@@ -59,6 +59,7 @@ find_cins \
 get_next_line_utils \
 get_next_line \
 my_pixel_put \
+normalize_distance \
 oob_check \
 setup_mlx \
 to_rgb \
