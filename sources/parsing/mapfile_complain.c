@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:15:10 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/02 17:27:38 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/28 19:13:56 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	st_complain_content(int type)
 		printf("Invalid character in Map\n(Only \" 01NSEW\")");
 	else if (type == ERR_MAPFILE_ALOCFAIL)
 		printf("Memory allocation failed\n(close some programs)");
+	else if (type == ERR_MAPFILE_NEWLINE)
+		printf("Newline in middle of map\n(Map should be one soild block)");
 }
 
 // Map files map gird errpors

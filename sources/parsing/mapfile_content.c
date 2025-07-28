@@ -6,7 +6,7 @@
 /*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:33:50 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/28 18:20:17 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/28 19:11:49 by sikunne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,41 @@ static int	st_process_textures(char *buffer, t_map *map)
 }
 
 // Tries to store the line in <buffer> into the corresponding map element
+// Sets *in to 0, if before map, 1 if inside map, and 2 if after map
+// So if content if encountered, despite in being 2, there is a \n in our map
 // Standard parsing return scheme
-static int	st_process_line(char *buffer, t_charlist **lst, t_map *map)
+static int	st_process_line(char *buf, t_charlist **lst, t_map *map, int *in)
 {
-	if (buffer == NULL)
+	if (buf == NULL)
 		return (ERR_MAPFILE_SYNTAX);
 	if (st_is_all_set(map) == 1)
 	{
-		if ((lst == NULL || *lst == NULL) && ft_strcmp(buffer, "\n") == 0)
+		if (ft_strcmp(buf, "\n") == 0)
+		{
+			if (*in == 1)
+				*in = 2;
 			return (0);
-		return (mapfile_build_list(map, lst, buffer));
+		}
+		if (*in == 0)
+			*in = 1;
+		else if (*in == 2)
+			return (ERR_MAPFILE_NEWLINE);
+		return (mapfile_build_list(map, lst, buf));
 	}
-	if (ft_strcmp(buffer, "\n") == 0)
+	if (ft_strcmp(buf, "\n") == 0)
 		return (0);
-	return (st_process_textures(buffer, map));
+	return (st_process_textures(buf, map));
 }
 
+// If we are after attributes
+// If empty line and start of lst -> do nothing
+// If Content, add content
+
+// If content -> set inside to 1
+// If no content and 1 -> 2
+// If 2 and content -> error
+
+// Either: If empty line, inside map, set ending to 1
 // Handles content of the Map file <mapfd>
 // Prepares and verifies Colors for ceiling and floor
 // as well as textures for directions
@@ -78,13 +97,15 @@ int	mapfile_content(int mapfd, t_map *map)
 	char		*buffer;
 	int			status;
 	t_charlist	*lst;
+	int			inside;
 
 	status = 0;
 	lst = NULL;
+	inside = 0;
 	buffer = gnl_line(mapfd);
 	while (status == 0 && buffer != NULL)
 	{
-		status = st_process_line(buffer, &lst, map);
+		status = st_process_line(buffer, &lst, map, &inside);
 		free(buffer);
 		buffer = NULL;
 		if (status == 0)
