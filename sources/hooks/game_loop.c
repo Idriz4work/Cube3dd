@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:23:01 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/23 19:48:48 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/30 16:15:23 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	st_fps(t_data *data)
 {
 	struct timeval	timestamp;
 
+	if (!BONUS)
+		return ;
 	data->frame++;
 	gettimeofday(&timestamp, NULL);
 	if (timestamp.tv_sec != data->oldtime)
@@ -24,12 +26,16 @@ static void	st_fps(t_data *data)
 		data->frame = 0;
 		data->oldtime = timestamp.tv_sec;
 	}
-	if (BONUS)
-		fps_draw_bonus(data);
+	fps_draw_bonus(data);
 }
 
-/*
-Central game loop
+/**
+ * Central game loop
+ * we move the player based on the keybinds (input) calling action_trigger
+ * we then update the window calling render_image
+ * we calculate the fps last in st_fps
+ * @param data: central data strcuture for the entire game
+ * @return 0 for success
 */
 int	game_loop(t_data *data)
 {

@@ -32,6 +32,11 @@ static void	st_calc_dimensions(t_ray *ray)
 
 /**
  * Calculate which x coordinate of the texture corresponds to the wall hit
+ * based on side we either look for the y value (vertical)
+ * or the x value (horizontal)
+ * and then we multiply by Texture size to get the corresponding 
+ * x coordinate inside the texture file
+ * updates wall_x to the calculatd texture_x 
  */
 static void	st_calc_texture_x(t_ray *ray)
 {

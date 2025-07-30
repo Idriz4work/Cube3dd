@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   action_trigger.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:10:35 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/23 17:48:30 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/30 15:22:32 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
-/*
-Register saved action, and execute accordingly
+/**
+ * Register saved action, and execute accordingly
+ * turn: change the layers roatation either positve or negative
 */
 void	action_trigger(t_data *data)
 {

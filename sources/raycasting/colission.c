@@ -25,13 +25,12 @@ static int	st_set_ray(t_ray *ray, int texture)
 }
 
 /**
- * Check collision with vertical neighbors
+ * Wrapper function for more precision
+ * Improved collision check for the western walls
  * @param data: Game data
  * @param ray: Ray structure
  * @param map_x: Current x coordinate
  * @param map_y: Current y coordinate
- * @param frac_x: Fractional x position
- * @param threshold: Proximity threshold
  * @return: 1 if collision found, 0 otherwise
  */
 static int	st_vert_next(t_data *data, t_ray *ray, int map_x, int map_y)
@@ -49,13 +48,13 @@ static int	st_vert_next(t_data *data, t_ray *ray, int map_x, int map_y)
 }
 
 /**
- * Check collision with horizontal neighbors
+ * Wrapper function for more precision
+ * Improved collision check for the northern walls
  * @param data: Game data
  * @param ray: Ray structure
  * @param map_x: Current x coordinate
  * @param map_y: Current y coordinate
  * @param frac_y: Fractional y position
- * @param threshold: Proximity threshold
  * @return: 1 if collision found, 0 otherwise
  */
 static int	st_horiz_next(t_data *data, t_ray *ray, int map_x, int map_y)
