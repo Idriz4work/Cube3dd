@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:27:06 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/28 18:20:18 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/30 15:15:38 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
 
+/**
+ * main function, sets up and runs game
+ */
 int	main(int argc, char **argv)
 {
 	int			status;

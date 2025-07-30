@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   oob_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:20:39 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/17 18:20:11 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/30 15:36:29 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 /**
  * Checks if coordinates inside of bounds (0 - max)
- * @params: x_max - Maximum allowed x value
- * @params: x_max - Maximum allowed y value
- * @params: x - current x coordinate
- * @params: y - current y coordinate
+ * @param x_max : - Maximum allowed x value
+ * @param x_max : Maximum allowed y value
+ * @param x : current x coordinate
+ * @param y : current y coordinate
  * @return: 1 if out ob bounds
  * @return: 0 if inside bounds
  */

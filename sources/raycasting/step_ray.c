@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   step_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:03:48 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/21 16:44:05 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/30 15:34:24 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ static int	st_single_step(t_ray *ray)
  * Moves in the direction of the rays vector
  * until it hits the Render Distance,
  * goes out of bounds,
- * or hits a wall (last part not implemented)
+ * or hits a wall
+ * @param ray: the ray to operate on
 */
 void	step_ray(t_data *data, t_ray *ray)
 {

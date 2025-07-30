@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   move_camera.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikunne <sikunne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:20:12 by sikunne           #+#    #+#             */
-/*   Updated: 2025/07/08 18:53:53 by sikunne          ###   ########.fr       */
+/*   Updated: 2025/07/30 15:16:53 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
 /*
- * Moves the camera plane and camera direction vectors to be in
+ * For the ray vectors the formula pos+dir+/-plane is used
+ * This moves the camera plane and camera direction vectors to be in
  * accordance with the player and its rotation
 */
 void	move_camera(t_data *data)
